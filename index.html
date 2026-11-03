@@ -154,13 +154,13 @@
         <!-- Luxury Hero Background Video Section -->
         <section class="hero-video-section">
             <video id="main-hero-video" class="hero-bg-video" autoplay loop muted playsinline>
-                <source src="https://cdn.pixabay.com/video/2021/08/11/84687-587843813_large.mp4" type="video/mp4">
+                <source src="https://videos.pexels.com/video-files/5753232/5753232-hd_1280_720_30fps.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay-dark"></div>
             <div class="hero-video-content reveal">
                 <h1 class="luxury-font">HOUSE OF SOMACA</h1>
                 <p>Pure Botanical Luxury & Artisanal Cosmetics</p>
-                <button class="btn-main glow-btn" onclick="scrollToCollections()" style="margin-top: 20px;">Explore Collections</button>
+                <button class="hero-explore-btn" onclick="scrollToCollections()" style="margin-top: 20px;">Explore Collections</button>
             </div>
         </section>
 
@@ -280,8 +280,9 @@
     <!-- ================= 1A. COLLECTION DETAILS VIEW ================= -->
     <div id="collection-detail-view" class="view-section">
         <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
-            <button class="icon-btn" style="margin-bottom: 20px; color: var(--gold);" onclick="switchView('home-view')">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <button class="btn-main" style="background: transparent; border: none; color: var(--gold); padding: 0; margin-bottom: 20px; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; align-items: center; gap: 8px;" onclick="scrollToCollections()">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Collections
             </button>
             <h2 class="luxury-font section-heading" id="collection-detail-title" style="text-align: left; margin-bottom: 30px;">Collection Name</h2>
 
