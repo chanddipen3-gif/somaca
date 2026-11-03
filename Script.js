@@ -192,8 +192,196 @@ setTimeout(() => {
     });
 }, 100);
 
+
+// ================= SIMPLE PRODUCT MANAGER =================
+function seedDefaultProducts() {
+    let products = JSON.parse(localStorage.getItem('somaca_products'));
+    if (!products || products.length === 0) {
+        products = [
+            {
+                id: "prod_" + Date.now(),
+                name: "Botanical Facial Kit",
+                category: "Face Elixirs & Skincare",
+                mrp: 599,
+                price: 199,
+                notes: "Neem, Haldi & Multani Mitti",
+                desc: "Experience pure botanical radiance with our signature facial kit.",
+                img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "prod_" + (Date.now() + 1),
+                name: "Artisanal Eau De Parfum",
+                category: "Women's Fragrances",
+                mrp: 1499,
+                price: 899,
+                notes: "Long-Lasting Oud & Rose Notes",
+                desc: "A timeless, artisanal fragrance designed for the modern luxury lover.",
+                img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+        localStorage.setItem('somaca_products', JSON.stringify(products));
+    }
+}
+
+function renderStorefrontProducts() {
+    const container = document.getElementById('dynamic-products-showcase');
+    if(!container) return;
+
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+
+    if(products.length === 0) {
+        container.innerHTML = '<div style="padding: 100px; text-align: center; color: var(--text-muted);">Collections Coming Soon</div>';
+        return;
+    }
+
+    let html = '';
+    products.forEach((p, index) => {
+        html += `
+            <section class="showcase-block reveal upgraded-product-card" id="prod-${p.id}">
+                <div class="product-tag">${p.category}</div>
+                <img src="${sanitize(p.img)}" alt="${sanitize(p.name)}" class="showcase-img" style="margin-bottom: 0;">
+                <h2 class="showcase-title">${sanitize(p.name)}</h2>
+                <div class="product-notes">${sanitize(p.notes)}</div>
+                <p style="color: #999; font-size: 13px; text-align: center; margin-bottom: 20px; max-width: 300px;">${sanitize(p.desc || '')}</p>
+                <div class="product-pricing">
+                    <span class="mrp-price">₹${p.mrp}</span>
+                    <span class="sell-price">₹${p.price}</span>
+                </div>
+                <div class="dual-buttons">
+                    <button class="btn-main" style="background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-size: 11px;" onclick="addToCart('${p.id}')">Add to Bag</button>
+                    <button class="btn-main glow-btn" style="padding: 12px; font-size: 11px;" onclick="buyNow('${p.id}')">Buy Now</button>
+                </div>
+            </section>
+        `;
+    });
+
+    container.innerHTML = html;
+
+    // Re-attach scroll reveal observer to new elements
+    setTimeout(() => {
+        document.querySelectorAll('#dynamic-products-showcase .reveal').forEach(el => {
+            observer.observe(el);
+            const rect = el.getBoundingClientRect();
+            if(rect.top < window.innerHeight) {
+                el.classList.add('active');
+                observer.unobserve(el);
+            }
+        });
+    }, 100);
+}
+
+function addToCart(prodId) {
+    showToast("Added to your shopping bag.", "success");
+    document.getElementById('cart-count').innerText = "1";
+}
+
+function buyNow(prodId) {
+    addToCart(prodId);
+    switchView('checkout-view');
+}
+
+function openPasscodeModal() {
+    document.getElementById('passcode-input').value = '';
+    document.getElementById('passcode-modal').style.display = 'flex';
+}
+
+function closePasscodeModal() {
+    document.getElementById('passcode-modal').style.display = 'none';
+}
+
+function verifyManagerPasscode() {
+    const code = document.getElementById('passcode-input').value.trim();
+    if(code === "976745") {
+        closePasscodeModal();
+        switchView('product-manager-view');
+        renderManagerProducts();
+    } else {
+        showToast("Access Denied. Incorrect Passcode.", "error");
+    }
+}
+
+function addManagerProduct() {
+    const name = document.getElementById('prod-name').value.trim();
+    const cat = document.getElementById('prod-cat').value.trim();
+    const mrp = document.getElementById('prod-mrp').value.trim();
+    const price = document.getElementById('prod-price').value.trim();
+    const notes = document.getElementById('prod-notes').value.trim();
+    const img = document.getElementById('prod-img').value.trim();
+    const desc = document.getElementById('prod-desc').value.trim();
+
+    if(!name || !cat || !mrp || !price || !img) {
+        showToast("Please fill all mandatory product details.", "error");
+        return;
+    }
+
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    products.push({
+        id: "prod_" + Date.now(),
+        name, category: cat, mrp: parseFloat(mrp), price: parseFloat(price), notes, desc, img
+    });
+    localStorage.setItem('somaca_products', JSON.stringify(products));
+
+    showToast("Product added successfully.", "success");
+
+    // Clear inputs
+    document.getElementById('prod-name').value = '';
+    document.getElementById('prod-cat').value = '';
+    document.getElementById('prod-mrp').value = '';
+    document.getElementById('prod-price').value = '';
+    document.getElementById('prod-notes').value = '';
+    document.getElementById('prod-desc').value = '';
+    document.getElementById('prod-img').value = '';
+
+    renderManagerProducts();
+    renderStorefrontProducts();
+}
+
+function deleteManagerProduct(id) {
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    products = products.filter(p => p.id !== id);
+    localStorage.setItem('somaca_products', JSON.stringify(products));
+    showToast("Product deleted.", "success");
+    renderManagerProducts();
+    renderStorefrontProducts();
+}
+
+function renderManagerProducts() {
+    const tbody = document.getElementById('manager-products-body');
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+
+    if(products.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px; color: var(--text-muted);">No products found.</td></tr>';
+        return;
+    }
+
+    let html = '';
+    products.forEach(p => {
+        html += `
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                <td style="padding: 10px 5px;"><img src="${sanitize(p.img)}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;"></td>
+                <td style="padding: 10px 5px;">
+                    <div style="color: #fff; font-weight: 500;">${sanitize(p.name)}</div>
+                    <div style="color: var(--text-muted); font-size: 10px;">${sanitize(p.category)}</div>
+                </td>
+                <td style="padding: 10px 5px; color: var(--gold);">₹${p.price}</td>
+                <td style="padding: 10px 5px;">
+                    <button class="delete-staff-btn" onclick="deleteManagerProduct('${p.id}')">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
+}
+
 // Init
 window.onload = () => {
+    seedDefaultProducts();
+    renderStorefrontProducts();
+
         checkAuth();
 };
 

@@ -17,6 +17,12 @@
 </head>
 <body>
 
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        100% PURE BOTANICAL LUXURY &nbsp;&nbsp;|&nbsp;&nbsp; FREE SHIPPING ON PREPAID ORDERS
+    </div>
+
     <!-- Top Navbar -->
     <header class="gucci-header">
         <a href="#" class="brand-logo gucci-logo" onclick="switchView('home-view')">S O M A C A</a>
@@ -82,74 +88,81 @@
         </ul>
     </div>
 
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/918373960622?text=Hello%20SOMACA,%20I%20have%20a%20query%20regarding%20your%20products." target="_blank" rel="noopener noreferrer" class="floating-wa">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+            <path d="M12.01 2.01A10 10 0 0 0 2.45 15.6L1 21l5.54-1.4A10 10 0 1 0 12.01 2.01zm-3.3 5.42c.16 0 .32.01.46.01.16 0 .37-.06.58.42s.7 1.7.76 1.83c.06.12.1.27.02.43s-.12.26-.24.4l-.36.4c-.13.12-.27.26-.12.5s.44.75.8 1.07c.45.41.9.56 1.15.7s.39.18.53.05c.15-.13.62-.73.79-.97.16-.25.32-.2.53-.13s1.37.65 1.6 77.24.4.4.52.26.81-.35 1.07s-.18.77-.52 1.07c-.34.3-2.02 1.04-2.83 1.04s-1.83-.24-3.15-.99c-1.32-.75-2.8-2.22-3.85-3.64-1.04-1.42-1.84-2.84-1.84-4.27s.76-2.12 1.04-2.43c.27-.3.6-.37.8-.37z"/>
+        </svg>
+    </a>
+
     <div id="toast-container"></div>
 
     <!-- ================= 1. HOME VIEW (Full Website) ================= -->
     <div id="home-view" class="view-section active-view">
-        
+
         <!-- Single Column Vertical Showcase -->
-        <main class="gucci-showcase">
-
-            <!-- Category 1 -->
-            <section class="showcase-block reveal" onclick="addToWaitlist('Women\'s Fragrances')">
-                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Women's Fragrances" class="showcase-img">
-                <h2 class="showcase-title">Women's Fragrances</h2>
-                <a href="#" class="showcase-link">Coming Soon</a>
-            </section>
-
-            <!-- Category 2 -->
-            <section class="showcase-block reveal" onclick="addToWaitlist('Men\'s Fragrances')">
-                <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80" alt="Men's Fragrances" class="showcase-img">
-                <h2 class="showcase-title">Men's Fragrances</h2>
-                <a href="#" class="showcase-link">Coming Soon</a>
-            </section>
-
-            <!-- Category 3 -->
-            <section class="showcase-block reveal" onclick="addToWaitlist('Haute Couture Lipsticks')">
-                <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" alt="Haute Couture Lipsticks" class="showcase-img">
-                <h2 class="showcase-title">Haute Couture Lipsticks</h2>
-                <a href="#" class="showcase-link">Coming Soon</a>
-            </section>
-
-            <!-- Category 4 -->
-            <section class="showcase-block reveal" onclick="addToWaitlist('Botanical Lip Balms')">
-                <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80" alt="Botanical Lip Balms" class="showcase-img">
-                <h2 class="showcase-title">Botanical Lip Balms</h2>
-                <a href="#" class="showcase-link">Coming Soon</a>
-            </section>
-
-            <!-- Category 5 -->
-            <section class="showcase-block reveal" onclick="addToWaitlist('Face Elixirs & Skincare')">
-                <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80" alt="Face Elixirs & Skincare" class="showcase-img">
-                <h2 class="showcase-title">Face Elixirs & Skincare</h2>
-                <a href="#" class="showcase-link">Coming Soon</a>
-            </section>
-
-            <!-- Category 6 -->
-            <section class="showcase-block reveal" onclick="addToWaitlist('Artisanal Eau De Parfum')">
-                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Artisanal Eau De Parfum" class="showcase-img">
-                <h2 class="showcase-title">Artisanal Eau De Parfum</h2>
-                <a href="#" class="showcase-link">Coming Soon</a>
-            </section>
-
+        <main class="gucci-showcase" id="dynamic-products-showcase">
+            <!-- Products rendered here by JS -->
         </main>
+
+        <!-- Trust Badges Section -->
+        <section class="trust-badges-section reveal">
+            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin-bottom: 30px; font-size: 22px;">The SOMACA Promise</h3>
+            <div class="trust-badges-grid">
+                <div class="trust-badge">
+                    <span style="font-size: 24px; color: var(--gold);">🌿</span>
+                    <p>100% Botanical & Pure</p>
+                </div>
+                <div class="trust-badge">
+                    <span style="font-size: 24px; color: var(--gold);">🐰</span>
+                    <p>Cruelty-Free</p>
+                </div>
+                <div class="trust-badge">
+                    <span style="font-size: 24px; color: var(--gold);">🔒</span>
+                    <p>Secure Payments</p>
+                </div>
+                <div class="trust-badge">
+                    <span style="font-size: 24px; color: var(--gold);">⚡</span>
+                    <p>Fast Pan-India Delivery</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews Section -->
+        <section class="reviews-section reveal">
+            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin-bottom: 40px; font-size: 28px;">Client Testimonials</h3>
+            <div class="reviews-container">
+                <div class="review-card glass-panel">
+                    <div class="stars" style="color: var(--gold); margin-bottom: 10px;">★★★★★</div>
+                    <p style="color: var(--text-muted); font-size: 13px; font-style: italic;">"The facial kit is absolutely incredible. Pure luxury and results."</p>
+                    <h5 style="color: #fff; margin-top: 15px; font-weight: normal; letter-spacing: 1px;">- Aanya M.</h5>
+                </div>
+                <div class="review-card glass-panel">
+                    <div class="stars" style="color: var(--gold); margin-bottom: 10px;">★★★★★</div>
+                    <p style="color: var(--text-muted); font-size: 13px; font-style: italic;">"I've never used a product that feels so pure on my skin. Worth every rupee."</p>
+                    <h5 style="color: #fff; margin-top: 15px; font-weight: normal; letter-spacing: 1px;">- Rohan S.</h5>
+                </div>
+            </div>
+        </section>
 
         <!-- Footer -->
         <footer class="reveal">
             <div class="luxury-font" style="font-size: 26px; letter-spacing: 5px; color: var(--gold); margin-bottom: 12px;">S O M A C A</div>
             <div class="social-links" style="margin-bottom: 15px;">
-                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+                <a href="https://www.instagram.com/houseofsomaca" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: none; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
-                    @somaca_botanicals
+                    @houseofsomaca
                 </a>
             </div>
             <p style="color: #555; font-size: 11px; margin-bottom: 15px;">© 2026 SOMACA. All rights reserved.</p>
-            <p style="font-size: 10px;">
+            <p style="font-size: 10px; display: flex; justify-content: center; gap: 15px;">
                 <a href="#" onclick="switchView('staff-auth-view')" style="color: #444; text-decoration: none; letter-spacing: 1px;">Staff / Atelier Portal</a>
+                <a href="#" onclick="openPasscodeModal()" style="color: #444; text-decoration: none; letter-spacing: 1px;">Product Manager</a>
             </p>
         </footer>
     </div>
@@ -542,6 +555,76 @@
         </div>
     </div>
 
+
+
+    <!-- ================= 9. PRODUCT MANAGER VIEW ================= -->
+    <div id="product-manager-view" class="view-section">
+        <div class="form-box glass-panel" style="max-width: 900px; padding: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <div>
+                    <div class="tag-sub">SIMPLE DB</div>
+                    <h2 class="luxury-font section-heading" style="margin-bottom: 0; text-align: left;">Product Manager</h2>
+                </div>
+                <button class="btn-main" style="background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 16px;" onclick="switchView('home-view')">Exit</button>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 15px; border-radius: 6px; margin-bottom: 25px;">
+                <h4 style="color: var(--gold); font-size: 14px; margin-bottom: 15px;">Add New Product</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <div><label style="font-size: 10px; color: var(--text-muted);">Name</label><input type="text" id="prod-name" class="glass-input" style="padding:8px;" placeholder="e.g. Artisanal Oud"></div>
+                    <div><label style="font-size: 10px; color: var(--text-muted);">Category</label><input type="text" id="prod-cat" class="glass-input" style="padding:8px;" placeholder="e.g. Fragrances"></div>
+                    <div><label style="font-size: 10px; color: var(--text-muted);">MRP (₹)</label><input type="number" id="prod-mrp" class="glass-input" style="padding:8px;" placeholder="e.g. 599"></div>
+                    <div><label style="font-size: 10px; color: var(--text-muted);">Selling Price (₹)</label><input type="number" id="prod-price" class="glass-input" style="padding:8px;" placeholder="e.g. 199"></div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="font-size: 10px; color: var(--text-muted);">Key Notes / Highlights</label>
+                    <input type="text" id="prod-notes" class="glass-input" style="padding:8px;" placeholder="e.g. Long-Lasting Oud & Rose Notes">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="font-size: 10px; color: var(--text-muted);">Description</label>
+                    <input type="text" id="prod-desc" class="glass-input" style="padding:8px;" placeholder="e.g. A luxurious blend of pure elements.">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-size: 10px; color: var(--text-muted);">Image URL</label>
+                    <input type="text" id="prod-img" class="glass-input" style="padding:8px;" placeholder="e.g. https://images.unsplash.com/...">
+                </div>
+                <button class="btn-main glow-btn" style="padding: 9px 15px; font-size: 11px; width: 100%;" onclick="addManagerProduct()">Add Product</button>
+            </div>
+
+            <div class="staff-orders-container" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
+                <table style="width: 100%; border-collapse: collapse; color: var(--text-main); font-size: 13px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-subtle); color: var(--gold); text-align: left;">
+                            <th style="padding: 12px 8px;">Image</th>
+                            <th style="padding: 12px 8px;">Details</th>
+                            <th style="padding: 12px 8px;">Price</th>
+                            <th style="padding: 12px 8px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="manager-products-body">
+                        <!-- Products populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple Passcode Modal -->
+    <div id="passcode-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content glass-panel" style="max-width: 400px; text-align: center;">
+            <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 10px;">Manager Access</h3>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Enter the 6-digit access passcode.</p>
+
+            <div class="form-group">
+                <input type="password" id="passcode-input" class="glass-input otp-input" placeholder="• • • • • •" maxlength="6" style="text-align: center; font-size: 24px; letter-spacing: 8px;">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);" onclick="closePasscodeModal()">Cancel</button>
+                <button class="btn-main glow-btn" style="flex: 1;" onclick="verifyManagerPasscode()">Access</button>
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScript to Handle Views & WhatsApp Order Generator -->
     <script src="Script.js"></script>
