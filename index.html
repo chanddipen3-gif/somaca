@@ -25,7 +25,7 @@
 
     <!-- Top Navbar -->
     <header class="gucci-header">
-        <a href="#" class="brand-logo gucci-logo" onclick="switchView('home-view')">S O M A C A</a>
+        <a href="javascript:void(0)" class="brand-logo gucci-logo" onclick="switchView('home-view')">S O M A C A</a>
         <div class="nav-actions gucci-nav-actions">
             <!-- Search Icon -->
             <button class="icon-btn" onclick="toggleDrawer('search-drawer')" title="Search">
@@ -79,13 +79,19 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
-        <ul class="drawer-links">
-            <li><a href="#" onclick="addToWaitlist('Women\'s Fragrances'); toggleDrawer('menu-drawer')">Women's Fragrances</a></li>
-            <li><a href="#" onclick="addToWaitlist('Men\'s Fragrances'); toggleDrawer('menu-drawer')">Men's Fragrances</a></li>
-            <li><a href="#" onclick="addToWaitlist('Haute Couture Lipsticks'); toggleDrawer('menu-drawer')">Haute Couture Lipsticks</a></li>
-            <li><a href="#" onclick="addToWaitlist('Botanical Lip Balms'); toggleDrawer('menu-drawer')">Botanical Lip Balms</a></li>
-            <li><a href="#" onclick="addToWaitlist('Face Elixirs & Skincare'); toggleDrawer('menu-drawer')">Face Elixirs & Skincare</a></li>
+        <ul class="drawer-links" style="flex: 1;">
+            <li><a href="javascript:void(0)" onclick="switchView('home-view'); toggleDrawer('menu-drawer')">Home</a></li>
+            <li><a href="javascript:void(0)" onclick="scrollToCollections(); toggleDrawer('menu-drawer')">Shop Collections</a></li>
+            <li><a href="javascript:void(0)" onclick="switchView('about-story-view'); toggleDrawer('menu-drawer')">Our Story / About Us</a></li>
+            <li><a href="javascript:void(0)" onclick="switchView('about-ingredients-view'); toggleDrawer('menu-drawer')">Botanical Ingredients & Craft</a></li>
+            <li><a href="javascript:void(0)" onclick="switchView('tracking-view'); toggleDrawer('menu-drawer')">Track Your Order</a></li>
+            <li><a href="javascript:void(0)" onclick="switchView('contact-view'); toggleDrawer('menu-drawer')">Contact & Client Care</a></li>
         </ul>
+        <div class="drawer-footer-links" style="border-top: 1px solid var(--border-subtle); padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <a href="javascript:void(0)" style="font-size: 11px; color: var(--text-muted); text-decoration: none;">Shipping & Returns</a>
+            <a href="javascript:void(0)" style="font-size: 11px; color: var(--text-muted); text-decoration: none;">Privacy Policy</a>
+            <a href="https://www.instagram.com/houseofsomaca" target="_blank" rel="noopener noreferrer" style="font-size: 11px; color: var(--gold); text-decoration: none;">Instagram</a>
+        </div>
     </div>
 
 
@@ -101,9 +107,67 @@
     <!-- ================= 1. HOME VIEW (Full Website) ================= -->
     <div id="home-view" class="view-section active-view">
 
-        <!-- Single Column Vertical Showcase -->
-        <main class="gucci-showcase" id="dynamic-products-showcase">
-            <!-- Products rendered here by JS -->
+        <!-- Luxury Hero Background Video Section -->
+        <section class="hero-video-section">
+            <video id="main-hero-video" class="hero-bg-video" autoplay loop muted playsinline>
+                <source src="https://cdn.pixabay.com/video/2021/08/11/84687-587843813_large.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay-dark"></div>
+            <div class="hero-video-content reveal">
+                <h1 class="luxury-font">HOUSE OF SOMACA</h1>
+                <p>Pure Botanical Luxury & Artisanal Cosmetics</p>
+                <button class="btn-main glow-btn" onclick="scrollToCollections()" style="margin-top: 20px;">Explore Collections</button>
+            </div>
+        </section>
+
+        <!-- 6 Luxury Collections Grid -->
+        <main class="collections-grid-section" id="collections-container">
+            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin: 60px 0 40px; font-size: 28px;">Our Collections</h3>
+            <div class="luxury-collections-grid">
+
+                <div class="collection-card reveal" onclick="openCollection('Botanical Skincare & Face Rituals')">
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80" alt="Skincare">
+                    <div class="collection-card-overlay">
+                        <h4 class="luxury-font">Botanical Skincare & Face Rituals</h4>
+                    </div>
+                </div>
+
+                <div class="collection-card reveal" onclick="openCollection('Artisanal Fine Fragrances')">
+                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Fragrances">
+                    <div class="collection-card-overlay">
+                        <h4 class="luxury-font">Artisanal Fine Fragrances</h4>
+                    </div>
+                </div>
+
+                <div class="collection-card reveal" onclick="openCollection('Luxe Color & Makeup')">
+                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" alt="Makeup">
+                    <div class="collection-card-overlay">
+                        <h4 class="luxury-font">Luxe Color & Makeup</h4>
+                    </div>
+                </div>
+
+                <div class="collection-card reveal" onclick="openCollection('Royal Hair Care Elixir')">
+                    <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80" alt="Hair Care">
+                    <div class="collection-card-overlay">
+                        <h4 class="luxury-font">Royal Hair Care Elixir</h4>
+                    </div>
+                </div>
+
+                <div class="collection-card reveal" onclick="openCollection('Velvet Body & Bath Care')">
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Bath Care">
+                    <div class="collection-card-overlay">
+                        <h4 class="luxury-font">Velvet Body & Bath Care</h4>
+                    </div>
+                </div>
+
+                <div class="collection-card reveal" onclick="openCollection('Signature Gifting Vault')">
+                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80" alt="Gifting">
+                    <div class="collection-card-overlay">
+                        <h4 class="luxury-font">Signature Gifting Vault</h4>
+                    </div>
+                </div>
+
+            </div>
         </main>
 
         <!-- Trust Badges Section -->
@@ -161,12 +225,75 @@
             </div>
             <p style="color: #555; font-size: 11px; margin-bottom: 15px;">© 2026 SOMACA. All rights reserved.</p>
             <p style="font-size: 10px; display: flex; justify-content: center; gap: 15px;">
-                <a href="#" onclick="switchView('staff-auth-view')" style="color: #444; text-decoration: none; letter-spacing: 1px;">Staff / Atelier Portal</a>
-                <a href="#" onclick="openPasscodeModal()" style="color: #444; text-decoration: none; letter-spacing: 1px;">Product Manager</a>
+                <a href="javascript:void(0)" onclick="switchView('staff-auth-view')" style="color: #444; text-decoration: none; letter-spacing: 1px;">Staff / Atelier Portal</a>
+                <a href="javascript:void(0)" onclick="openPasscodeModal()" style="color: #444; text-decoration: none; letter-spacing: 1px;">Product Manager</a>
             </p>
         </footer>
     </div>
 
+
+
+    <!-- ================= 1A. COLLECTION DETAILS VIEW ================= -->
+    <div id="collection-detail-view" class="view-section">
+        <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+            <button class="icon-btn" style="margin-bottom: 20px; color: var(--gold);" onclick="switchView('home-view')">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <h2 class="luxury-font section-heading" id="collection-detail-title" style="text-align: left; margin-bottom: 30px;">Collection Name</h2>
+
+            <!-- Horizontal Row of Products -->
+            <div class="products-row-container" id="collection-products-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 1B. ABOUT STORY VIEW ================= -->
+    <div id="about-story-view" class="view-section">
+        <div class="content-container reveal" style="padding-top: 120px;">
+            <div class="tag-sub" style="text-align: center;">OUR PHILOSOPHY</div>
+            <h2 class="luxury-font section-heading">House of SOMACA</h2>
+            <p class="about-text">SOMACA stands for uncompromised purity in skincare and fine fragrances. We reject chemical fillers and complex routines, bringing you back to sacred, earth-derived botanical rituals. Consciously crafted for modern luxury lovers who appreciate the finest ingredients sourced globally.</p>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn-main glow-btn" onclick="switchView('home-view')">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 1C. BOTANICAL CRAFT VIEW ================= -->
+    <div id="about-ingredients-view" class="view-section">
+        <div class="content-container reveal" style="padding-top: 120px;">
+            <div class="tag-sub" style="text-align: center;">PURE FORMULATION</div>
+            <h2 class="luxury-font section-heading">Ingredients & Craft</h2>
+            <ul class="ingredients-grid">
+                <li><strong>Artisanal Formulation</strong> — Every elixir is hand-blended in micro-batches to preserve potency.</li>
+                <li><strong>100% Pure & Botanical</strong> — We use zero synthetic fillers, parabens, or sulfates.</li>
+                <li><strong>Cruelty-Free Standard</strong> — Never tested on animals, crafted with deep respect for nature.</li>
+                <li><strong>Sacred Earth Elements</strong> — Utilizing rare absolutes, pure clays, and cold-pressed oils.</li>
+            </ul>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn-main glow-btn" onclick="switchView('home-view')">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 1D. CONTACT VIEW ================= -->
+    <div id="contact-view" class="view-section">
+        <div class="content-container reveal" style="padding-top: 120px; text-align: center;">
+            <div class="tag-sub">CLIENT CARE</div>
+            <h2 class="luxury-font section-heading">Contact Us</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Our Atelier Sommelier is available to assist you.</p>
+
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 30px; border-radius: 6px; margin-bottom: 25px;">
+                <p style="color: #fff; font-size: 14px; margin-bottom: 10px;"><strong>Official Email:</strong> <a href="mailto:houseofsomaca@gmail.com" style="color: var(--gold); text-decoration: none;">houseofsomaca@gmail.com</a></p>
+                <p style="color: #fff; font-size: 14px;"><strong>WhatsApp Support:</strong> <a href="https://wa.me/918373960622" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: none;">+91 8373960622</a></p>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn-main glow-btn" onclick="switchView('home-view')">Back to Home</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ================= 2. LOGIN / SIGNUP VIEW ================= -->
     <div id="auth-view" class="view-section">
@@ -196,7 +323,7 @@
             <button class="btn-main" style="width: 100%; background: transparent; border: 1px solid var(--gold); color: var(--gold);" onclick="sendMagicLink()">Send Verification Link</button>
 
             <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="#" onclick="switchView('home-view')" style="color: var(--gold); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">← Back to Store</a>
+                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--gold); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">← Back to Store</a>
             </p>
         </div>
     </div>
@@ -240,7 +367,7 @@
             <button class="btn-main glow-btn" style="width: 100%;" onclick="initiateRazorpay()">Pay Now & Place Order</button>
 
             <p style="text-align: center; margin-top: 20px; font-size: 12px;">
-                <a href="#" onclick="switchView('home-view')" style="color: var(--gold); text-decoration: none;">← Return to Store</a>
+                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--gold); text-decoration: none;">← Return to Store</a>
             </p>
         </div>
     </div>
@@ -265,7 +392,7 @@
             </div>
 
             <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="#" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">Return to Store</a>
+                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">Return to Store</a>
             </p>
         </div>
     </div>
@@ -300,7 +427,7 @@
             </div>
 
             <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="#" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
+                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
             </p>
         </div>
     </div>
@@ -369,7 +496,7 @@
             </div>
 
             <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="#" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
+                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
             </p>
         </div>
     </div>
@@ -427,7 +554,7 @@
             </div>
 
             <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="#" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
+                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
             </p>
         </div>
     </div>
@@ -569,10 +696,29 @@
             </div>
 
             <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 15px; border-radius: 6px; margin-bottom: 25px;">
-                <h4 style="color: var(--gold); font-size: 14px; margin-bottom: 15px;">Add New Product</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4 style="color: var(--gold); font-size: 14px; margin: 0;">Add / Edit Product</h4>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="hero-vid-url" class="glass-input" style="padding:6px; font-size: 10px; width: 150px;" placeholder="Update Hero Video URL">
+                        <button class="btn-main" style="padding: 6px 10px; font-size: 10px;" onclick="updateHeroVideo()">Save Video</button>
+                    </div>
+                </div>
+
+                <input type="hidden" id="prod-edit-id">
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                     <div><label style="font-size: 10px; color: var(--text-muted);">Name</label><input type="text" id="prod-name" class="glass-input" style="padding:8px;" placeholder="e.g. Artisanal Oud"></div>
-                    <div><label style="font-size: 10px; color: var(--text-muted);">Category</label><input type="text" id="prod-cat" class="glass-input" style="padding:8px;" placeholder="e.g. Fragrances"></div>
+                    <div>
+                        <label style="font-size: 10px; color: var(--text-muted);">Category</label>
+                        <select id="prod-cat" class="glass-input" style="padding:8px;">
+                            <option value="Botanical Skincare & Face Rituals">Botanical Skincare & Face Rituals</option>
+                            <option value="Artisanal Fine Fragrances">Artisanal Fine Fragrances</option>
+                            <option value="Luxe Color & Makeup">Luxe Color & Makeup</option>
+                            <option value="Royal Hair Care Elixir">Royal Hair Care Elixir</option>
+                            <option value="Velvet Body & Bath Care">Velvet Body & Bath Care</option>
+                            <option value="Signature Gifting Vault">Signature Gifting Vault</option>
+                        </select>
+                    </div>
                     <div><label style="font-size: 10px; color: var(--text-muted);">MRP (₹)</label><input type="number" id="prod-mrp" class="glass-input" style="padding:8px;" placeholder="e.g. 599"></div>
                     <div><label style="font-size: 10px; color: var(--text-muted);">Selling Price (₹)</label><input type="number" id="prod-price" class="glass-input" style="padding:8px;" placeholder="e.g. 199"></div>
                 </div>
@@ -584,11 +730,20 @@
                     <label style="font-size: 10px; color: var(--text-muted);">Description</label>
                     <input type="text" id="prod-desc" class="glass-input" style="padding:8px;" placeholder="e.g. A luxurious blend of pure elements.">
                 </div>
-                <div style="margin-bottom: 15px;">
-                    <label style="font-size: 10px; color: var(--text-muted);">Image URL</label>
-                    <input type="text" id="prod-img" class="glass-input" style="padding:8px;" placeholder="e.g. https://images.unsplash.com/...">
+                <div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-end;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 10px; color: var(--text-muted);">Image URL</label>
+                        <input type="text" id="prod-img" class="glass-input" style="padding:8px;" placeholder="e.g. https://images.unsplash.com/...">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 4px; border: 1px solid var(--border-subtle);">
+                        <input type="checkbox" id="prod-coming-soon">
+                        <label style="font-size: 10px; color: var(--gold); margin: 0;">Is Coming Soon?</label>
+                    </div>
                 </div>
-                <button class="btn-main glow-btn" style="padding: 9px 15px; font-size: 11px; width: 100%;" onclick="addManagerProduct()">Add Product</button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-main glow-btn" style="padding: 9px 15px; font-size: 11px; flex: 1;" onclick="addManagerProduct()" id="btn-save-prod">Save Product</button>
+                    <button class="btn-main" style="padding: 9px 15px; font-size: 11px; flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);" onclick="clearManagerForm()">Clear</button>
+                </div>
             </div>
 
             <div class="staff-orders-container" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">

@@ -198,47 +198,43 @@ function seedDefaultProducts() {
     let products = JSON.parse(localStorage.getItem('somaca_products'));
     if (!products || products.length === 0) {
         products = [
-            {
-                id: "prod_" + Date.now(),
-                name: "Botanical Facial Kit",
-                category: "Face Elixirs & Skincare",
-                mrp: 599,
-                price: 199,
-                notes: "Neem, Haldi & Multani Mitti",
-                desc: "Experience pure botanical radiance with our signature facial kit.",
-                img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "prod_" + (Date.now() + 1),
-                name: "Artisanal Eau De Parfum",
-                category: "Women's Fragrances",
-                mrp: 1499,
-                price: 899,
-                notes: "Long-Lasting Oud & Rose Notes",
-                desc: "A timeless, artisanal fragrance designed for the modern luxury lover.",
-                img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80"
-            }
+            { id: "prod_1", name: "Botanical Facial Kit", category: "Botanical Skincare & Face Rituals", mrp: 599, price: 199, notes: "Neem, Haldi & Multani Mitti", desc: "Experience pure botanical radiance with our signature facial kit.", img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80", isComingSoon: false },
+            { id: "prod_2", name: "Radiance Serum", category: "Botanical Skincare & Face Rituals", mrp: 1299, price: 999, notes: "Kumkumadi & Rosehip", desc: "A luxurious nighttime elixir for glowing skin.", img: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
+            { id: "prod_3", name: "Artisanal Eau De Parfum", category: "Artisanal Fine Fragrances", mrp: 1499, price: 899, notes: "Long-Lasting Oud & Rose Notes", desc: "A timeless, artisanal fragrance designed for the modern luxury lover.", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
+            { id: "prod_4", name: "Velvet Matte Lipstick", category: "Luxe Color & Makeup", mrp: 899, price: 699, notes: "Infused with Jojoba Oil", desc: "Rich pigment with botanical hydration.", img: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
+            { id: "prod_5", name: "Royal Hair Masque", category: "Royal Hair Care Elixir", mrp: 799, price: 599, notes: "Bhringraj & Amla Extracts", desc: "Deep conditioning root therapy.", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80", isComingSoon: true }
         ];
         localStorage.setItem('somaca_products', JSON.stringify(products));
     }
 }
 
-function renderStorefrontProducts() {
-    const container = document.getElementById('dynamic-products-showcase');
-    if(!container) return;
+function openCollection(collectionName) {
+    switchView('collection-detail-view');
+    document.getElementById('collection-detail-title').innerText = collectionName;
 
+    const container = document.getElementById('collection-products-container');
     let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    let filtered = products.filter(p => p.category === collectionName);
 
-    if(products.length === 0) {
-        container.innerHTML = '<div style="padding: 100px; text-align: center; color: var(--text-muted);">Collections Coming Soon</div>';
+    if(filtered.length === 0) {
+        container.innerHTML = '<div style="padding: 100px; grid-column: 1/-1; text-align: center; color: var(--text-muted);">Products Coming Soon</div>';
         return;
     }
 
     let html = '';
-    products.forEach((p, index) => {
+    filtered.forEach(p => {
+        const badgeHtml = p.isComingSoon ? `<div class="coming-soon-badge">Coming Soon</div>` : '';
+        const btnHtml = p.isComingSoon ?
+            `<button class="btn-main glow-btn" style="width: 100%; padding: 12px; font-size: 11px;" onclick="addToWaitlist('${sanitize(p.name)}')">Join Waitlist</button>` :
+            `<div class="dual-buttons">
+                <button class="btn-main" style="background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-size: 11px;" onclick="addToCart('${p.id}')">Add to Bag</button>
+                <button class="btn-main glow-btn" style="padding: 12px; font-size: 11px;" onclick="buyNow('${p.id}')">Buy Now</button>
+            </div>`;
+
         html += `
-            <section class="showcase-block reveal upgraded-product-card" id="prod-${p.id}">
-                <div class="product-tag">${p.category}</div>
+            <div class="showcase-block reveal upgraded-product-card" style="padding: 20px 0;">
+                ${badgeHtml}
+                <div class="product-tag">${sanitize(p.category)}</div>
                 <img src="${sanitize(p.img)}" alt="${sanitize(p.name)}" class="showcase-img" style="margin-bottom: 0;">
                 <h2 class="showcase-title">${sanitize(p.name)}</h2>
                 <div class="product-notes">${sanitize(p.notes)}</div>
@@ -247,19 +243,15 @@ function renderStorefrontProducts() {
                     <span class="mrp-price">₹${p.mrp}</span>
                     <span class="sell-price">₹${p.price}</span>
                 </div>
-                <div class="dual-buttons">
-                    <button class="btn-main" style="background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-size: 11px;" onclick="addToCart('${p.id}')">Add to Bag</button>
-                    <button class="btn-main glow-btn" style="padding: 12px; font-size: 11px;" onclick="buyNow('${p.id}')">Buy Now</button>
-                </div>
-            </section>
+                ${btnHtml}
+            </div>
         `;
     });
-
     container.innerHTML = html;
 
-    // Re-attach scroll reveal observer to new elements
+    // trigger scroll reveal
     setTimeout(() => {
-        document.querySelectorAll('#dynamic-products-showcase .reveal').forEach(el => {
+        document.querySelectorAll('#collection-products-container .reveal').forEach(el => {
             observer.observe(el);
             const rect = el.getBoundingClientRect();
             if(rect.top < window.innerHeight) {
@@ -278,6 +270,31 @@ function addToCart(prodId) {
 function buyNow(prodId) {
     addToCart(prodId);
     switchView('checkout-view');
+}
+
+
+function scrollToCollections() {
+    switchView('home-view');
+    setTimeout(() => {
+        document.getElementById('collections-container').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+}
+
+function updateHeroVideo() {
+    const url = document.getElementById('hero-vid-url').value.trim();
+    if (url) {
+        localStorage.setItem('somaca_hero_vid', url);
+        document.getElementById('main-hero-video').src = url;
+        showToast("Hero video updated.", "success");
+    }
+}
+
+function loadHeroVideo() {
+    const saved = localStorage.getItem('somaca_hero_vid');
+    if (saved) {
+        const vid = document.getElementById('main-hero-video');
+        if(vid) vid.src = saved;
+    }
 }
 
 function openPasscodeModal() {
@@ -333,7 +350,7 @@ function addManagerProduct() {
     document.getElementById('prod-img').value = '';
 
     renderManagerProducts();
-    renderStorefrontProducts();
+    loadHeroVideo();
 }
 
 function deleteManagerProduct(id) {
@@ -342,7 +359,7 @@ function deleteManagerProduct(id) {
     localStorage.setItem('somaca_products', JSON.stringify(products));
     showToast("Product deleted.", "success");
     renderManagerProducts();
-    renderStorefrontProducts();
+    loadHeroVideo();
 }
 
 function renderManagerProducts() {
@@ -364,8 +381,11 @@ function renderManagerProducts() {
                     <div style="color: var(--text-muted); font-size: 10px;">${sanitize(p.category)}</div>
                 </td>
                 <td style="padding: 10px 5px; color: var(--gold);">₹${p.price}</td>
-                <td style="padding: 10px 5px;">
-                    <button class="delete-staff-btn" onclick="deleteManagerProduct('${p.id}')">
+                <td style="padding: 10px 5px; display: flex; gap: 5px;">
+                    <button class="btn-main" style="background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 4px;" onclick="editManagerProduct('${p.id}')" title="Edit">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    </button>
+                    <button class="delete-staff-btn" onclick="deleteManagerProduct('${p.id}')" title="Delete">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -380,7 +400,7 @@ function renderManagerProducts() {
 // Init
 window.onload = () => {
     seedDefaultProducts();
-    renderStorefrontProducts();
+    loadHeroVideo();
 
         checkAuth();
 };
