@@ -262,15 +262,7 @@ function openCollection(collectionName) {
     }, 100);
 }
 
-function addToCart(prodId) {
-    showToast("Added to your shopping bag.", "success");
-    document.getElementById('cart-count').innerText = "1";
-}
 
-function buyNow(prodId) {
-    addToCart(prodId);
-    switchView('checkout-view');
-}
 
 
 function scrollToCollections() {
@@ -351,6 +343,7 @@ function addManagerProduct() {
 
     renderManagerProducts();
     loadHeroVideo();
+    renderCartDrawer();
 }
 
 function deleteManagerProduct(id) {
@@ -360,6 +353,7 @@ function deleteManagerProduct(id) {
     showToast("Product deleted.", "success");
     renderManagerProducts();
     loadHeroVideo();
+    renderCartDrawer();
 }
 
 function renderManagerProducts() {
@@ -401,9 +395,186 @@ function renderManagerProducts() {
 window.onload = () => {
     seedDefaultProducts();
     loadHeroVideo();
+    renderCartDrawer();
 
         checkAuth();
 };
+
+
+// ================= CART MANAGEMENT =================
+let shoppingCart = JSON.parse(localStorage.getItem('somaca_cart') || '[]');
+let activePromo = null;
+
+function saveCart() {
+    localStorage.setItem('somaca_cart', JSON.stringify(shoppingCart));
+    renderCartDrawer();
+}
+
+function addToCart(prodId) {
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    let product = products.find(p => p.id === prodId);
+
+    if(!product) return;
+
+    let existingItem = shoppingCart.find(item => item.id === prodId);
+    if(existingItem) {
+        existingItem.qty += 1;
+    } else {
+        shoppingCart.push({...product, qty: 1});
+    }
+
+    showToast("Added to your shopping bag.", "success");
+    saveCart();
+
+    // Auto open drawer when adding to cart
+    toggleDrawer('cart-drawer');
+}
+
+function buyNow(prodId) {
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    let product = products.find(p => p.id === prodId);
+
+    if(!product) return;
+
+    let existingItem = shoppingCart.find(item => item.id === prodId);
+    if(existingItem) {
+        existingItem.qty += 1;
+    } else {
+        shoppingCart.push({...product, qty: 1});
+    }
+    saveCart();
+    proceedToCheckout();
+}
+
+function updateCartQty(prodId, delta) {
+    let itemIndex = shoppingCart.findIndex(item => item.id === prodId);
+    if(itemIndex > -1) {
+        shoppingCart[itemIndex].qty += delta;
+        if(shoppingCart[itemIndex].qty <= 0) {
+            shoppingCart.splice(itemIndex, 1);
+        }
+        saveCart();
+    }
+}
+
+function applyPromoCode() {
+    const code = document.getElementById('promo-code-input').value.trim().toUpperCase();
+    if(code === "LUXURY10" || code === "SOMACA10") {
+        activePromo = { code, discountPercent: 10 };
+        showToast("Promo code applied!", "success");
+    } else {
+        activePromo = null;
+        showToast("Invalid promo code.", "error");
+    }
+    renderCartDrawer();
+}
+
+function renderCartDrawer() {
+    const emptyState = document.getElementById('cart-empty-state');
+    const filledState = document.getElementById('cart-filled-state');
+    const itemsContainer = document.getElementById('cart-items-container');
+    const badge = document.getElementById('cart-count');
+
+    let totalItems = 0;
+    shoppingCart.forEach(i => totalItems += i.qty);
+    badge.innerText = totalItems;
+
+    if(shoppingCart.length === 0) {
+        emptyState.style.display = 'block';
+        filledState.style.display = 'none';
+        return;
+    }
+
+    emptyState.style.display = 'none';
+    filledState.style.display = 'flex';
+
+    let html = '';
+    let totalMRP = 0;
+    let totalSellingPrice = 0;
+
+    shoppingCart.forEach(item => {
+        let mrpSum = item.mrp * item.qty;
+        let priceSum = item.price * item.qty;
+        totalMRP += mrpSum;
+        totalSellingPrice += priceSum;
+
+        let discountPercent = Math.round(((item.mrp - item.price) / item.mrp) * 100);
+
+        html += `
+            <div class="cart-item-row">
+                <img src="${sanitize(item.img)}" class="cart-item-img" alt="${sanitize(item.name)}">
+                <div class="cart-item-details">
+                    <div class="cart-item-title">${sanitize(item.name)}</div>
+                    <div class="cart-item-cat">${sanitize(item.category)}</div>
+                    <div class="cart-item-pricing">
+                        <span style="font-weight: bold; color: var(--gold); font-size: 13px;">₹${item.price}</span>
+                        <span style="text-decoration: line-through; color: #666; font-size: 11px;">₹${item.mrp}</span>
+                        <span style="color: #25D366; font-size: 10px; border: 1px solid #25D366; padding: 2px 4px; border-radius: 2px;">${discountPercent}% OFF</span>
+                    </div>
+                    <div class="cart-item-qty">
+                        <button class="qty-btn" onclick="updateCartQty('${item.id}', -1)">-</button>
+                        <span style="color: #fff; font-size: 11px; padding: 0 10px;">${item.qty}</span>
+                        <button class="qty-btn" onclick="updateCartQty('${item.id}', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    itemsContainer.innerHTML = html;
+
+    // Billing Calculations
+    let productDiscount = totalMRP - totalSellingPrice;
+    let productDiscountPercent = Math.round((productDiscount / totalMRP) * 100);
+
+    let subtotal = totalSellingPrice;
+    let promoRow = document.getElementById('promo-discount-row');
+    let promoMsg = document.getElementById('active-promo-msg');
+
+    if(activePromo) {
+        let promoDiscountAmount = Math.round(subtotal * (activePromo.discountPercent / 100));
+        subtotal -= promoDiscountAmount;
+        promoRow.innerHTML = `<span>Promo (${activePromo.code})</span> <span style="color:#25D366;">- ₹${promoDiscountAmount} (${activePromo.discountPercent}%)</span>`;
+        promoRow.style.display = 'flex';
+        promoMsg.innerText = `'${activePromo.code}' applied successfully.`;
+        promoMsg.style.display = 'block';
+    } else {
+        promoRow.style.display = 'none';
+        promoMsg.style.display = 'none';
+    }
+
+    // GST 18% on discounted subtotal
+    let gstAmount = Math.round(subtotal * 0.18);
+    let grandTotal = subtotal + gstAmount;
+
+    document.getElementById('bill-mrp').innerText = `₹${totalMRP}`;
+    document.getElementById('bill-discount').innerText = `- ₹${productDiscount} (${productDiscountPercent}%)`;
+    document.getElementById('bill-subtotal').innerText = `₹${totalSellingPrice}`;
+    document.getElementById('bill-gst').innerText = `₹${gstAmount}`;
+    document.getElementById('bill-total').innerText = `₹${grandTotal}`;
+
+    // Expose for checkout
+    window.cartSummary = { grandTotal, totalItems, items: shoppingCart.map(i => `${i.qty}x ${i.name}`).join(', ') };
+}
+
+function proceedToCheckout() {
+    toggleDrawer('cart-drawer');
+    switchView('checkout-view');
+
+    const summary = document.getElementById('checkout-order-summary');
+    if(summary && window.cartSummary) {
+        summary.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h4 style="color:#fff; font-size:15px;" class="luxury-font">SOMACA Order</h4>
+                    <span style="font-size:12px; color:var(--text-muted);">Qty: ${window.cartSummary.totalItems} Items</span>
+                </div>
+                <span style="font-size:18px; color:var(--gold); font-weight:bold;" class="luxury-font">₹${window.cartSummary.grandTotal}</span>
+            </div>
+            <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted);">${sanitize(window.cartSummary.items)}</div>
+        `;
+    }
+}
 
 // ================= RAZORPAY CHECKOUT LOGIC =================
 function initiateRazorpay() {
@@ -422,8 +593,12 @@ function initiateRazorpay() {
         return;
     }
 
-    const cartTotal = 199;
-    const itemsSummary = "1x SOMACA Botanical Facial Kit (50G)";
+    if(!window.cartSummary || window.cartSummary.grandTotal <= 0) {
+        showToast("Your cart is empty.", "error");
+        return;
+    }
+    const cartTotal = window.cartSummary.grandTotal;
+    const itemsSummary = window.cartSummary.items;
 
     var options = {
         "key": RAZORPAY_KEY_ID,
@@ -521,8 +696,10 @@ function handleSuccessfulPayment(paymentId, name, email, phone, addr, total, ite
         console.error("Error writing document: ", error);
     });
 
-    // Reset Cart (dummy update)
-    document.getElementById('cart-count').innerText = "0";
+    // Reset Cart
+    shoppingCart = [];
+    activePromo = null;
+    saveCart();
 
     // Update Confirmation View
 

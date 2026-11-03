@@ -42,7 +42,7 @@
                 </svg>
             </button>
             <!-- Shopping Bag Icon -->
-            <button class="icon-btn cart-icon" onclick="switchView('checkout-view')" title="Cart">
+            <button class="icon-btn cart-icon" onclick="toggleDrawer('cart-drawer')" title="Cart">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -68,6 +68,50 @@
             <button class="icon-btn" onclick="toggleDrawer('search-drawer')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
+        </div>
+    </div>
+
+    <!-- Slide Right Cart Drawer -->
+    <div id="cart-drawer" class="drawer menu-drawer" style="width: 400px; padding: 0;">
+        <div class="drawer-header" style="padding: 25px 25px 15px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 0;">
+            <span class="luxury-font" style="font-size: 1.2rem; letter-spacing: 2px;">YOUR BAG</span>
+            <button class="icon-btn" onclick="toggleDrawer('cart-drawer')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+
+        <div id="cart-empty-state" style="padding: 40px 25px; text-align: center; flex: 1;">
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Your SOMACA Bag is currently empty.</p>
+            <button class="btn-main glow-btn" style="padding: 12px 20px; font-size: 11px;" onclick="scrollToCollections(); toggleDrawer('cart-drawer')">Explore Collections</button>
+        </div>
+
+        <div id="cart-filled-state" style="display: none; flex: 1; flex-direction: column; overflow-y: auto;">
+            <div id="cart-items-container" style="padding: 20px 25px;">
+                <!-- Cart items populated by JS -->
+            </div>
+
+            <div style="padding: 20px 25px; border-top: 1px solid var(--border-subtle); background: rgba(0,0,0,0.4);">
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="promo-code-input" class="glass-input" style="padding: 10px; font-size: 11px; text-transform: uppercase;" placeholder="Enter Promo Code (e.g. LUXURY10)">
+                    <button class="btn-main" style="padding: 10px 15px; font-size: 11px; background: transparent; border: 1px solid var(--gold); color: var(--gold);" onclick="applyPromoCode()">Apply</button>
+                </div>
+                <div id="active-promo-msg" style="color: #25D366; font-size: 11px; margin-bottom: 15px; display: none;"></div>
+
+                <h4 style="color: var(--gold); font-size: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">Bill Summary</h4>
+                <div style="font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between;"><span>Total MRP</span> <span id="bill-mrp">₹0</span></div>
+                    <div style="display: flex; justify-content: space-between; color: #25D366;"><span>Offer Discount</span> <span id="bill-discount">- ₹0 (0%)</span></div>
+                    <div style="display: flex; justify-content: space-between;" id="promo-discount-row"></div>
+                    <div style="display: flex; justify-content: space-between;"><span>Subtotal</span> <span id="bill-subtotal">₹0</span></div>
+                    <div style="display: flex; justify-content: space-between;"><span>GST (18%)</span> <span id="bill-gst">₹0</span></div>
+                    <div style="display: flex; justify-content: space-between;"><span>Shipping</span> <span id="bill-shipping">FREE</span></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; color: #fff; font-size: 16px; font-weight: bold; border-top: 1px solid var(--border-subtle); padding-top: 15px; margin-bottom: 20px;">
+                    <span>Grand Total</span> <span id="bill-total" style="color: var(--gold);">₹0</span>
+                </div>
+
+                <button class="btn-main glow-btn" style="width: 100%;" onclick="proceedToCheckout()">Complete Order</button>
+            </div>
         </div>
     </div>
 
@@ -335,12 +379,8 @@
             <div class="tag-sub" style="text-align: center;">SECURE CHECKOUT</div>
             <h2 class="luxury-font section-heading">Complete Order</h2>
 
-            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--gold); padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 4px;">
-                <div>
-                    <h4 style="color:#fff; font-size:15px;" class="luxury-font">SOMACA Botanical Facial Kit</h4>
-                    <span style="font-size:12px; color:var(--text-muted);">Qty: 1 (50G)</span>
-                </div>
-                <span style="font-size:18px; color:var(--gold); font-weight:bold;" class="luxury-font">₹199</span>
+            <div id="checkout-order-summary" style="background: rgba(0,0,0,0.4); border: 1px solid var(--gold); padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+                <!-- Populated by JS -->
             </div>
 
             <div class="form-group">
