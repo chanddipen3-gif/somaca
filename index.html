@@ -3,937 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOMACA - Luxury Botanical Skincare</title>
-    <!-- Google Fonts for Luxury Cosmetic Serif & Clean Sans -->
+    <title>HOUSE OF SOMACA - Pure Botanical Luxury</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Style.css">
-
-    <!-- Firebase Compat SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
-
-    <!-- Announcement Bar -->
-    <div class="announcement-bar">
-        100% PURE BOTANICAL LUXURY &nbsp;&nbsp;|&nbsp;&nbsp; FREE SHIPPING ON PREPAID ORDERS
+    <!-- 1. Royal Split-Curtain Preloader -->
+    <div id="preloader">
+        <div class="curtain curtain-left"></div>
+        <div class="curtain curtain-right"></div>
+        <div class="preloader-logo luxury-font">S O M A C A</div>
     </div>
+    <!-- 1. Golden Reading Progress Thread -->
+    <div id="reading-progress"></div>
 
-    <!-- Top Navbar -->
-    <header class="gucci-header">
-        <a href="javascript:void(0)" class="brand-logo gucci-logo" onclick="switchView('home-view')">S O M A C A</a>
-        <div class="nav-actions gucci-nav-actions">
-            <!-- Search Icon -->
-            <button class="icon-btn" onclick="toggleDrawer('search-drawer')" title="Search">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </button>
-            <!-- User Profile Icon -->
-            <button class="icon-btn" onclick="openUserMenu()" title="Account">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </button>
-            <!-- Shopping Bag Icon -->
-            <button class="icon-btn cart-icon" onclick="toggleDrawer('cart-drawer')" title="Cart">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                <span class="cart-badge" id="cart-count">0</span>
-            </button>
-            <!-- Hamburger Menu Icon -->
-            <button class="icon-btn" onclick="toggleDrawer('menu-drawer')" title="Menu">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-    </header>
+    <div id="app-wrapper">
 
-    <!-- Slide Down Search Drawer -->
-    <div id="search-drawer" class="drawer search-drawer">
-        <div class="drawer-content">
-            <input type="text" placeholder="Search SOMACA..." class="search-input" autofocus>
-            <button class="icon-btn" onclick="toggleDrawer('search-drawer')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-        </div>
-    </div>
+        <!-- 2. Dynamic Greeting Bar -->
+        <div id="greeting-bar" style="text-align: center; padding: 8px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; background: #050505; color: var(--gold-light); border-bottom: 0.5px solid var(--border-subtle);"></div>
 
-    <!-- Slide Right Cart Drawer -->
-    <div id="cart-drawer" class="drawer menu-drawer" style="width: 400px; padding: 0;">
-        <div class="drawer-header" style="padding: 25px 25px 15px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 0;">
-            <span class="luxury-font" style="font-size: 1.2rem; letter-spacing: 2px;">YOUR BAG</span>
-            <button class="icon-btn" onclick="toggleDrawer('cart-drawer')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-        </div>
-
-        <div id="cart-empty-state" style="padding: 40px 25px; text-align: center; flex: 1;">
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Your SOMACA Bag is currently empty.</p>
-            <button class="btn-main glow-btn" style="padding: 12px 20px; font-size: 11px;" onclick="scrollToCollections(); toggleDrawer('cart-drawer')">Explore Collections</button>
-        </div>
-
-        <div id="cart-filled-state" style="display: none; flex: 1; flex-direction: column; overflow-y: auto;">
-            <div id="cart-items-container" style="padding: 20px 25px;">
-                <!-- Cart items populated by JS -->
+        <!-- 2. Floating Glass Header -->
+        <header id="main-header" style="position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(8,8,8,0.75); border-bottom: 0.5px solid rgba(212,175,55,0.3);">
+            <div style="flex: 1; display: flex; gap: 20px; align-items: center;">
+                <button onclick="toggleAudio()" style="background: none; border: none; color: var(--gold); cursor: pointer;" title="Toggle Ambient Audio">
+                    <svg id="audio-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                </button>
+                <audio id="ambient-audio" loop src="assets/audio/ambient.mp3"></audio>
             </div>
 
-            <div style="padding: 20px 25px; border-top: 1px solid var(--border-subtle); background: rgba(0,0,0,0.4);">
-                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                    <input type="text" id="promo-code-input" class="glass-input" style="padding: 10px; font-size: 11px; text-transform: uppercase;" placeholder="Enter Promo Code (e.g. LUXURY10)">
-                    <button class="btn-main" style="padding: 10px 15px; font-size: 11px; background: transparent; border: 1px solid var(--gold); color: var(--gold);" onclick="applyPromoCode()">Apply</button>
-                </div>
-                <div id="active-promo-msg" style="color: #25D366; font-size: 11px; margin-bottom: 15px; display: none;"></div>
+        <!-- 5. Authentic SOMACA Perfume Collection -->
+        <main class="collections-section">
+            <h3 class="luxury-font section-heading">Our Masterpieces</h3>
 
-                <h4 style="color: var(--gold); font-size: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">Bill Summary</h4>
-                <div style="font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
-                    <div style="display: flex; justify-content: space-between;"><span>Total MRP</span> <span id="bill-mrp">₹0</span></div>
-                    <div style="display: flex; justify-content: space-between; color: #25D366;"><span>Offer Discount</span> <span id="bill-discount">- ₹0 (0%)</span></div>
-                    <div style="display: flex; justify-content: space-between;" id="promo-discount-row"></div>
-                    <div style="display: flex; justify-content: space-between;"><span>Subtotal</span> <span id="bill-subtotal">₹0</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span>GST (18%)</span> <span id="bill-gst">₹0</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span>Shipping</span> <span id="bill-shipping">FREE</span></div>
-                </div>
-                <div style="display: flex; justify-content: space-between; color: #fff; font-size: 16px; font-weight: bold; border-top: 1px solid var(--border-subtle); padding-top: 15px; margin-bottom: 20px;">
-                    <span>Grand Total</span> <span id="bill-total" style="color: var(--gold);">₹0</span>
-                </div>
-
-                <div style="margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; color: var(--gold); font-size: 11px;">
-                        <input type="checkbox" id="gift-checkbox" onchange="document.getElementById('gift-note-container').style.display = this.checked ? 'block' : 'none'">
-                        Sending as a Royal Gift? Add a free personalized message on our textured greeting card.
-                    </label>
-                    <div id="gift-note-container" style="display: none; margin-top: 10px;">
-                        <textarea id="gift-note-text" class="glass-input" rows="3" placeholder="Enter your custom note here..." style="font-size: 11px; padding: 8px; width: 100%;"></textarea>
-                    </div>
-                </div>
-
-                <button class="btn-main glow-btn" style="width: 100%;" onclick="proceedToCheckout()">Complete Order</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide Right Menu Drawer -->
-    <div id="menu-drawer" class="drawer menu-drawer">
-        <div class="drawer-header">
-            <span class="luxury-font" style="font-size: 1.2rem; letter-spacing: 2px;">MENU</span>
-            <button class="icon-btn" onclick="toggleDrawer('menu-drawer')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-        </div>
-        <ul class="drawer-links" style="flex: 1;">
-            <li><a href="javascript:void(0)" onclick="switchView('home-view'); toggleDrawer('menu-drawer')">Home</a></li>
-            <li><a href="javascript:void(0)" onclick="scrollToCollections(); toggleDrawer('menu-drawer')">Shop Collections</a></li>
-            <li><a href="javascript:void(0)" onclick="switchView('about-story-view'); toggleDrawer('menu-drawer')">Our Story / About Us</a></li>
-            <li><a href="javascript:void(0)" onclick="switchView('about-ingredients-view'); toggleDrawer('menu-drawer')">Botanical Ingredients & Craft</a></li>
-            <li><a href="javascript:void(0)" onclick="switchView('tracking-view'); toggleDrawer('menu-drawer')">Track Your Order</a></li>
-            <li><a href="javascript:void(0)" onclick="switchView('contact-view'); toggleDrawer('menu-drawer')">Contact & Client Care</a></li>
-        </ul>
-        <div class="drawer-footer-links" style="border-top: 1px solid var(--border-subtle); padding-top: 20px; display: flex; flex-direction: column; gap: 10px;">
-            <a href="javascript:void(0)" style="font-size: 11px; color: var(--text-muted); text-decoration: none;">Shipping & Returns</a>
-            <a href="javascript:void(0)" style="font-size: 11px; color: var(--text-muted); text-decoration: none;">Privacy Policy</a>
-            <a href="https://www.instagram.com/houseofsomaca" target="_blank" rel="noopener noreferrer" style="font-size: 11px; color: var(--gold); text-decoration: none;">Instagram</a>
-        </div>
-    </div>
-
-
-
-
-    <div id="toast-container"></div>
-
-    <!-- ================= 1. HOME VIEW (Full Website) ================= -->
-    <div id="home-view" class="view-section active-view">
-
-        <!-- Luxury Hero Background Video Section -->
-        <section class="hero-video-section">
-            <video id="main-hero-video" class="hero-bg-video" autoplay loop muted playsinline>
-                <source src="assets/videos/luxury-hero.mp4" type="video/mp4">
-            </video>
-            <div class="hero-overlay-dark"></div>
-            <div class="hero-video-content reveal">
-                <h1 class="luxury-font">HOUSE OF SOMACA</h1>
-                <p>Pure Botanical Luxury & Artisanal Cosmetics</p>
-                <button class="hero-explore-btn" onclick="scrollToCollections()" style="margin-top: 20px;">Explore Collections</button>
-            </div>
-        </section>
-
-        <!-- Luxury USP & Trust Marquee Strip -->
-        <div class="marquee-strip">
-            <div class="marquee-content">
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> 0% Alcohol • 100% Pure Perfume Oil</span>
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 12+ Hours Skin & Apparel Projection</span>
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Skin-Safe Botanical Extracts</span>
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 9.36l-7.1 7.1a1 1 0 0 1-1.41-1.41l7.1-7.1a6 6 0 0 1 9.36-7.94l-3.77 3.77a1 1 0 0 0 0 1.41z"></path></svg> Handcrafted in Exclusive Small Batches</span>
-                <!-- Duplicate for seamless looping -->
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> 0% Alcohol • 100% Pure Perfume Oil</span>
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 12+ Hours Skin & Apparel Projection</span>
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Skin-Safe Botanical Extracts</span>
-                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 9.36l-7.1 7.1a1 1 0 0 1-1.41-1.41l7.1-7.1a6 6 0 0 1 9.36-7.94l-3.77 3.77a1 1 0 0 0 0 1.41z"></path></svg> Handcrafted in Exclusive Small Batches</span>
-            </div>
-        </div>
-
-        <!-- Somaca Products Showcase -->
-        <main class="collections-grid-section" id="collections-container">
-            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin: 60px 0 40px; font-size: 28px; letter-spacing: 2px; text-transform: uppercase;">Our Masterpieces</h3>
-
-            <div class="products-row-container" id="somaca-perfumes-showcase" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-                <!-- Authentic Products rendered via JS -->
+            <div class="somaca-perfumes-showcase" id="perfumes-container">
+                <!-- Dynamically populated via JS to handle scarcity and cart logic cleanly -->
             </div>
         </main>
 
-        <!-- Interactive 20-Second Scent Finder Quiz -->
-        <section class="scent-finder-section reveal">
-            <h3 class="luxury-font section-heading">Find Your Signature Aura</h3>
-            <div id="quiz-step-1" class="quiz-step active-step">
-                <p>When will you wear it?</p>
-                <div class="quiz-options">
-                    <button class="hero-explore-btn" onclick="nextQuizStep('day')">Daytime Elegance</button>
-                    <button class="hero-explore-btn" onclick="nextQuizStep('night')">Midnight Statement</button>
-                </div>
-            </div>
-            <div id="quiz-step-2" class="quiz-step" style="display: none;">
-                <p>Choose your vibe:</p>
-                <div class="quiz-options">
-                    <button class="hero-explore-btn" onclick="showQuizResult('SOMACA Oudh & Vanille')">Deep & Woody</button>
-                    <button class="hero-explore-btn" onclick="showQuizResult('SOMACA Artisanal Amber & Rose')">Sweet & Warm</button>
-                    <button class="hero-explore-btn" onclick="showQuizResult('SOMACA Royal White Musk')">Clean & Powdery</button>
-                </div>
-            </div>
-            <div id="quiz-result" class="quiz-step" style="display: none;">
-                <h4 class="luxury-font" style="color: var(--gold); font-size: 20px;">Your Perfect Match</h4>
-                <div id="quiz-recommendation" style="margin: 20px 0; color: #fff; font-size: 14px;"></div>
-                <div style="display: flex; justify-content: center; gap: 15px;">
-                    <button class="hero-explore-btn" onclick="resetQuiz()" style="font-size: 10px; padding: 10px 20px;">Retake Quiz</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Build Your Royal Trio Custom Bundle Builder -->
-        <section class="royal-trio-section reveal">
-            <div class="trio-container glass-panel">
-                <h3 class="luxury-font section-heading" style="margin-bottom: 10px;">Curate Your Royal Trio</h3>
-                <p style="color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">Pick Any 3 (10ml) Roll-Ons for ₹999 <span style="color: var(--gold);">(Save ₹498)</span></p>
-
-                <div class="trio-slots">
-                    <div class="trio-slot" id="slot-1" onclick="openBundleSelector(1)">+</div>
-                    <div class="trio-slot" id="slot-2" onclick="openBundleSelector(2)">+</div>
-                    <div class="trio-slot" id="slot-3" onclick="openBundleSelector(3)">+</div>
-                </div>
-
-                <button class="hero-explore-btn" id="add-trio-btn" style="width: 100%; margin-top: 30px; opacity: 0.5; pointer-events: none;" onclick="addTrioToCart()">Add Bundle to Cart - ₹999</button>
-            </div>
-
-            <!-- Hidden selector modal for slots -->
-            <div id="trio-selector" style="display: none; padding: 20px; background: #080808; border: 1px solid var(--gold); margin-top: 20px; border-radius: 4px;">
-                <h4 style="color: var(--gold); margin-bottom: 15px; font-size: 14px; text-align: center;">Select a Scent</h4>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="hero-explore-btn" style="padding: 10px; font-size: 11px;" onclick="selectTrioItem('SOMACA Oudh & Vanille')">Oudh & Vanille</button>
-                    <button class="hero-explore-btn" style="padding: 10px; font-size: 11px;" onclick="selectTrioItem('SOMACA Royal White Musk')">Royal White Musk</button>
-                    <button class="hero-explore-btn" style="padding: 10px; font-size: 11px;" onclick="selectTrioItem('SOMACA Artisanal Amber & Rose')">Amber & Rose</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3-Stage Scent Evolution Timeline & Pulse Point Guide -->
-        <section class="scent-evolution-section reveal">
-            <h3 class="luxury-font section-heading">The Alchemy of Somaca</h3>
-
-            <div class="evolution-grid">
-                <div class="timeline-box glass-panel">
-                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">Scent Evolution</h4>
-                    <div class="timeline-step">
-                        <div class="time-marker">First 15 Mins</div>
-                        <div class="time-title">The Awakening</div>
-                        <div class="time-desc">Rich top botanical notes unfold.</div>
-                    </div>
-                    <div class="timeline-step">
-                        <div class="time-marker">After 2 Hours</div>
-                        <div class="time-title">The Heart</div>
-                        <div class="time-desc">Warm vanilla, rose, and spices settle into your skin chemistry.</div>
-                    </div>
-                    <div class="timeline-step">
-                        <div class="time-marker">12+ Hours</div>
-                        <div class="time-title">The Royal Trail</div>
-                        <div class="time-desc">Deep oudh and musk linger effortlessly on skin and clothes.</div>
-                    </div>
-                </div>
-
-                <div class="pulse-point-box glass-panel">
-                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">The Art of Application</h4>
-                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 20px;">For the most intimate and long-lasting projection, apply directly to your pulse points where the body's natural heat activates the pure oils.</p>
-                    <ul style="list-style: none; padding: 0; color: #fff; font-size: 13px; display: flex; flex-direction: column; gap: 15px;">
-                        <li><span style="color: var(--gold);">✧</span> Inside Wrists</li>
-                        <li><span style="color: var(--gold);">✧</span> Behind Earlobes</li>
-                        <li><span style="color: var(--gold);">✧</span> Collarbones</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Raw Botanical Ingredients & Unboxing -->
-        <section class="ingredients-unboxing-section reveal">
+        <!-- 10. Interactive Before/Inside Unboxing Slider -->
+        <section class="reveal" style="padding: 80px 20px; text-align: center;">
             <h3 class="luxury-font section-heading">More Than A Perfume, It's A Keepsake</h3>
-            <div class="unboxing-grid">
-                <div class="raw-ingredients text-center glass-panel">
-                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Sacred Earth Elements</h4>
-                    <p style="color: var(--text-muted); font-size: 12px; line-height: 1.8;">Distilled from the rarest botanical treasures. We source genuine Raw Agarwood (Oudh), rich Vanilla Beans, authentic Kannauj Rose, and pure Saffron to ensure uncompromised luxury in every drop.</p>
+            <div class="slider-container" style="position: relative; max-width: 600px; height: 350px; margin: 0 auto; overflow: hidden; border: 1px solid var(--gold); border-radius: 4px; touch-action: pan-y;">
+                <!-- Inside View (Background) -->
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+                    <div style="color: var(--gold); font-size: 24px;">✨</div>
+                    <p style="color: #fff; font-size: 12px; margin-top: 10px;">Deep Black Velvet Foam Insert<br>3D Gold-Framed 10ml Bottle<br>Textured Greeting Card</p>
                 </div>
-                <div class="unboxing-details text-center glass-panel">
-                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">The Royal Unboxing</h4>
-                    <ul style="list-style: none; padding: 0; color: #fff; font-size: 12px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
-                        <li>✓ Matte-Black Sliding Drawer Box</li>
-                        <li>✓ Deep Black Velvet Foam Insert</li>
-                        <li>✓ 3D Gold-Framed 10ml Bottle</li>
-                        <li>✓ Textured Greeting Card with Certificate of Batch #01 Authenticity</li>
-                    </ul>
+                <!-- Outside View (Foreground/Clipped) -->
+                <div id="slider-before" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: #111; border-right: 2px solid var(--gold); overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                    <div style="width: 600px; text-align: center; position: absolute; left: 0;">
+                        <h4 class="luxury-font" style="color: #fff; font-size: 24px; letter-spacing: 5px;">S O M A C A</h4>
+                        <p style="color: var(--text-muted); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;">Matte-Black Sliding Drawer Box</p>
+                    </div>
+                </div>
+                <!-- Slider Control -->
+                <input type="range" min="0" max="100" value="50" class="slider-input" oninput="document.getElementById('slider-before').style.width = this.value + '%'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 10;">
+            </div>
+            <p style="color: var(--gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px;">Slide to Reveal</p>
+        </section>
+
+        <!-- 11. Live Monogrammed Certificate -->
+        <section class="reveal" style="padding: 80px 20px; background: #050505; text-align: center;">
+            <h3 class="luxury-font section-heading">Digital Olfactory Certificate</h3>
+            <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 30px;">Personalize your Batch #01 Certificate of Authenticity.</p>
+            <div style="margin-bottom: 30px;">
+                <input type="text" id="monogram-input" class="glass-input" placeholder="Enter Initials (e.g. R.K.)" maxlength="5" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); color: #fff; padding: 14px 16px; border-radius: 6px; width: 250px; text-align: center; text-transform: uppercase; font-size: 16px; letter-spacing: 4px;" oninput="document.getElementById('live-monogram').innerText = this.value || 'R.K.'">
+            </div>
+            <div style="position: relative; max-width: 400px; margin: 0 auto; padding: 40px; background: #111; border: 1px solid var(--border-subtle); box-shadow: inset 0 0 20px rgba(212,175,55,0.05);">
+                <div style="border: 1px solid var(--gold); padding: 30px;">
+                    <h5 class="luxury-font" style="color: var(--text-muted); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Certificate of Authenticity</h5>
+                    <div id="live-monogram" class="luxury-font shimmer-text" style="font-size: 36px; margin-bottom: 20px;">R.K.</div>
+                    <p style="color: var(--gold); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Batch #01 — Handcrafted in India</p>
                 </div>
             </div>
         </section>
 
-
-        <!-- Trust Badges Section -->
-        <section class="trust-badges-section reveal">
-            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin-bottom: 30px; font-size: 22px;">The SOMACA Promise</h3>
-            <div class="trust-badges-grid">
-                <div class="trust-badge">
-                    <span style="font-size: 24px; color: var(--gold);">🌿</span>
-                    <p>100% Botanical & Pure</p>
+        <!-- 6. Olfactory Pyramid & Sillage Radar -->
+        <section class="reveal" style="padding: 80px 20px; background: #050505; border-top: 1px solid var(--border-subtle);">
+            <h3 class="luxury-font section-heading" style="text-align: center; margin-bottom: 20px;">The Olfactory Journey</h3>
+            <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
+                <div class="pyramid-container" style="text-align: center;">
+                    <div style="width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-bottom: 180px solid rgba(212,175,55,0.1); margin: 0 auto; position: relative;">
+                        <div style="position: absolute; top: 20px; left: -50px; width: 100px; text-align: center; color: var(--gold); font-size: 11px; letter-spacing: 2px;">TOP<br><span style="font-size: 8px; color: #aaa;">15 MINS</span></div>
+                        <div style="position: absolute; top: 80px; left: -80px; width: 160px; text-align: center; color: var(--gold); font-size: 11px; letter-spacing: 2px; border-top: 1px dashed var(--gold);">HEART<br><span style="font-size: 8px; color: #aaa;">2 HOURS</span></div>
+                        <div style="position: absolute; top: 140px; left: -100px; width: 200px; text-align: center; color: var(--gold); font-size: 11px; letter-spacing: 2px; border-top: 1px dashed var(--gold);">BASE<br><span style="font-size: 8px; color: #aaa;">12+ HOURS</span></div>
+                    </div>
                 </div>
-                <div class="trust-badge">
-                    <span style="font-size: 24px; color: var(--gold);">🐰</span>
-                    <p>Cruelty-Free</p>
-                </div>
-                <div class="trust-badge">
-                    <span style="font-size: 24px; color: var(--gold);">🔒</span>
-                    <p>Secure Payments</p>
-                </div>
-                <div class="trust-badge">
-                    <span style="font-size: 24px; color: var(--gold);">⚡</span>
-                    <p>Fast Pan-India Delivery</p>
+                <div class="radar-container" style="text-align: center; position: relative; height: 250px; display: flex; align-items: center; justify-content: center;">
+                    <div style="position: absolute; width: 200px; height: 200px; border: 1px dashed rgba(212,175,55,0.2); border-radius: 50%;"></div>
+                    <div style="position: absolute; width: 140px; height: 140px; border: 1px dashed rgba(212,175,55,0.5); border-radius: 50%;"></div>
+                    <div style="position: absolute; width: 80px; height: 80px; background: rgba(212,175,55,0.2); border: 1px solid var(--gold); border-radius: 50%;"></div>
+                    <div style="z-index: 1; color: #fff; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;">Intimate<br><br>Room Filler<br><br>Royal Trail</div>
                 </div>
             </div>
         </section>
 
-        <!-- Customer Reviews Section -->
-        <section class="reviews-section reveal">
-            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin-bottom: 40px; font-size: 28px;">Client Testimonials</h3>
-            <div class="reviews-container">
-                <div class="review-card glass-panel">
-                    <div class="stars" style="color: var(--gold); margin-bottom: 10px;">★★★★★</div>
-                    <p style="color: var(--text-muted); font-size: 13px; font-style: italic;">"The facial kit is absolutely incredible. Pure luxury and results."</p>
-                    <h5 style="color: #fff; margin-top: 15px; font-weight: normal; letter-spacing: 1px;">- Aanya M.</h5>
-                </div>
-                <div class="review-card glass-panel">
-                    <div class="stars" style="color: var(--gold); margin-bottom: 10px;">★★★★★</div>
-                    <p style="color: var(--text-muted); font-size: 13px; font-style: italic;">"I've never used a product that feels so pure on my skin. Worth every rupee."</p>
-                    <h5 style="color: #fff; margin-top: 15px; font-weight: normal; letter-spacing: 1px;">- Rohan S.</h5>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="reveal">
-            <div class="luxury-font" style="font-size: 26px; letter-spacing: 5px; color: var(--gold); margin-bottom: 12px;">S O M A C A</div>
-            <div class="social-links" style="margin-bottom: 15px;">
-                <a href="https://www.instagram.com/houseofsomaca" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: none; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                    @houseofsomaca
-                </a>
-            </div>
-            <p style="color: #555; font-size: 11px; margin-bottom: 15px;">© 2026 SOMACA. All rights reserved.</p>
-            <p style="font-size: 10px; display: flex; justify-content: center; gap: 15px;">
-                <a href="javascript:void(0)" onclick="switchView('staff-auth-view')" style="color: #444; text-decoration: none; letter-spacing: 1px;">Staff / Atelier Portal</a>
-                <a href="javascript:void(0)" onclick="openPasscodeModal()" style="color: #444; text-decoration: none; letter-spacing: 1px;">Product Manager</a>
-            </p>
-        </footer>
-    </div>
-
-
-
-    <!-- ================= 1A. COLLECTION DETAILS VIEW ================= -->
-    <div id="collection-detail-view" class="view-section">
-        <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
-            <button class="btn-main" style="background: transparent; border: none; color: var(--gold); padding: 0; margin-bottom: 20px; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; align-items: center; gap: 8px;" onclick="scrollToCollections()">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to Collections
-            </button>
-            <h2 class="luxury-font section-heading" id="collection-detail-title" style="text-align: left; margin-bottom: 30px;">Collection Name</h2>
-
-            <!-- Horizontal Row of Products -->
-            <div class="products-row-container" id="collection-products-container">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= 1B. ABOUT STORY VIEW ================= -->
-    <div id="about-story-view" class="view-section">
-        <div class="content-container reveal" style="padding-top: 120px;">
-            <div class="tag-sub" style="text-align: center;">OUR PHILOSOPHY</div>
-            <h2 class="luxury-font section-heading">House of SOMACA</h2>
-            <p class="about-text">SOMACA stands for uncompromised purity in skincare and fine fragrances. We reject chemical fillers and complex routines, bringing you back to sacred, earth-derived botanical rituals. Consciously crafted for modern luxury lovers who appreciate the finest ingredients sourced globally.</p>
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="btn-main glow-btn" onclick="switchView('home-view')">Back to Home</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= 1C. BOTANICAL CRAFT VIEW ================= -->
-    <div id="about-ingredients-view" class="view-section">
-        <div class="content-container reveal" style="padding-top: 120px;">
-            <div class="tag-sub" style="text-align: center;">PURE FORMULATION</div>
-            <h2 class="luxury-font section-heading">Ingredients & Craft</h2>
-            <ul class="ingredients-grid">
-                <li><strong>Artisanal Formulation</strong> — Every elixir is hand-blended in micro-batches to preserve potency.</li>
-                <li><strong>100% Pure & Botanical</strong> — We use zero synthetic fillers, parabens, or sulfates.</li>
-                <li><strong>Cruelty-Free Standard</strong> — Never tested on animals, crafted with deep respect for nature.</li>
-                <li><strong>Sacred Earth Elements</strong> — Utilizing rare absolutes, pure clays, and cold-pressed oils.</li>
-            </ul>
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="btn-main glow-btn" onclick="switchView('home-view')">Back to Home</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= 1D. CONTACT VIEW ================= -->
-    <div id="contact-view" class="view-section">
-        <div class="content-container reveal" style="padding-top: 120px; text-align: center;">
-            <div class="tag-sub">CLIENT CARE</div>
-            <h2 class="luxury-font section-heading">Contact Us</h2>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Our Atelier Sommelier is available to assist you.</p>
-
-            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 30px; border-radius: 6px; margin-bottom: 25px;">
-                <p style="color: #fff; font-size: 14px; margin-bottom: 10px;"><strong>Official Email:</strong> <a href="mailto:houseofsomaca@gmail.com" style="color: var(--gold); text-decoration: none;">houseofsomaca@gmail.com</a></p>
-                <p style="color: #fff; font-size: 14px;"><strong>WhatsApp Support:</strong> <a href="https://wa.me/918373960622" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: none;">+91 8373960622</a></p>
-            </div>
-
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="btn-main glow-btn" onclick="switchView('home-view')">Back to Home</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= 2. LOGIN / SIGNUP VIEW ================= -->
-    <div id="auth-view" class="view-section">
-        <div class="form-box auth-form-box glass-panel">
-            <div class="tag-sub" style="text-align: center;">CLIENT PORTAL</div>
-            <h2 class="luxury-font section-heading" style="font-size: 28px;">Welcome</h2>
-            <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 25px;">Sign in to access your VIP benefits.</p>
-
-            <button class="btn-main glow-btn google-btn" style="width: 100%; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="signInWithGoogle()">
-                <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                </svg>
-                Continue with Google
-            </button>
-
-            <div class="oauth-divider">
-                <span>or use magic link</span>
-            </div>
-
-            <div class="form-group">
-                <input type="email" id="magic-email-input" class="glass-input" placeholder="name@example.com">
-            </div>
-
-            <button class="btn-main" style="width: 100%; background: transparent; border: 1px solid var(--gold); color: var(--gold);" onclick="sendMagicLink()">Send Verification Link</button>
-
-            <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--gold); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">← Back to Store</a>
-            </p>
-        </div>
-    </div>
-
-
-    <!-- ================= 3. CHECKOUT & PAYMENT VIEW ================= -->
-    <div id="checkout-view" class="view-section">
-        <div class="form-box glass-panel" style="max-width: 480px;">
-            <div class="tag-sub" style="text-align: center;">SECURE CHECKOUT</div>
-            <h2 class="luxury-font section-heading">Complete Order</h2>
-
-            <div id="checkout-order-summary" style="background: rgba(0,0,0,0.4); border: 1px solid var(--gold); padding: 15px; margin-bottom: 20px; border-radius: 4px;">
-                <!-- Populated by JS -->
-            </div>
-
-            <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" id="cust-name" class="glass-input" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-                <label>Email Address *</label>
-                <input type="email" id="cust-email" class="glass-input" placeholder="name@example.com" required>
-            </div>
-            <div class="form-group">
-                <label>WhatsApp Number *</label>
-                <input type="tel" id="cust-phone" class="glass-input" placeholder="10-digit mobile number" required>
-            </div>
-            <div class="form-group">
-                <label>Delivery Address *</label>
-                <input type="text" id="cust-addr" class="glass-input" placeholder="House no, Street, City, State, Pincode" required>
-            </div>
-
-            <div style="margin: 20px 0; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 12px; font-size: 12px; color: var(--gold); text-align: center; border-radius: 4px;">
-                🔒 Secure 128-bit Encrypted Checkout
-            </div>
-
-            <button class="btn-main glow-btn" style="width: 100%;" onclick="initiateRazorpay()">Pay Now & Place Order</button>
-
-            <p style="text-align: center; margin-top: 20px; font-size: 12px;">
-                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--gold); text-decoration: none;">← Return to Store</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- ================= 4. ORDER CONFIRMATION VIEW ================= -->
-    <div id="confirmation-view" class="view-section">
-        <div class="form-box glass-panel" style="max-width: 500px; text-align: center;">
-            <div class="tag-sub">SUCCESSFUL PAYMENT</div>
-            <h2 class="luxury-font section-heading" style="color: var(--gold);">Order Confirmed</h2>
-            <div style="font-size: 48px; margin: 20px 0;">✨</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Official confirmation receipt sent to your Email & Mobile. For support, contact <a href="mailto:houseofsomaca@gmail.com" style="color:var(--gold);">houseofsomaca@gmail.com</a>.</p>
-
-            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 4px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                <div style="color: #fff; font-family: monospace; font-size: 18px; margin-bottom: 5px;" id="confirm-order-id">#SMC-00000</div>
-                <div style="color: var(--gold); font-size: 13px;" id="confirm-est-delivery">Est. Delivery: </div>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <button class="btn-main glow-btn" onclick="switchView('tracking-view')">Track My Order Live</button>
-                <button class="btn-main" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);" onclick="printInvoice()">Download / Print Royal Invoice</button>
-                <button class="btn-main" style="background-color: #25D366; border: none; color: #000;" id="wa-confirm-btn">WhatsApp Support</button>
-            </div>
-
-            <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">Return to Store</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- ================= 5. LIVE TRACKING VIEW ================= -->
-    <div id="tracking-view" class="view-section">
-        <div class="form-box glass-panel" style="max-width: 600px;">
-            <div class="tag-sub" style="text-align: center;">SOMACA ATELIER</div>
-            <h2 class="luxury-font section-heading">Live Order Tracking</h2>
-
-            <div class="form-group" style="display: flex; gap: 10px; margin-top: 25px;">
-                <input type="text" id="track-search-input" class="glass-input" placeholder="Enter Order ID (#SMC-...) or Mobile Number" style="flex: 1;">
-                <button class="btn-main glow-btn" onclick="searchOrder()" style="padding: 14px 20px;">Track</button>
-            </div>
-
-            <div id="tracking-result" style="display: none; margin-top: 30px;">
-                <h4 style="color: var(--gold); margin-bottom: 5px; font-family: monospace;" id="track-order-id"></h4>
-                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 25px;">Estimated Delivery: <span id="track-est-del" style="color: #fff;"></span></p>
-
-                <div class="tracking-timeline" id="tracking-timeline-container">
-                    <!-- Stages will be injected here via JS -->
-                </div>
-
-                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <h5 style="color: #fff; font-size: 14px; margin-bottom: 10px;">Courier Details</h5>
-                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 15px;">Partner: <span id="courier-name">SOMACA Express</span></p>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" class="glass-input" id="courier-awb" value="AWB: Pending Dispatch" disabled style="flex: 1; font-size: 12px;">
-                        <button class="btn-main" style="padding: 10px; background: transparent; border: 1px solid #25D366; color: #25D366; font-size: 11px;" id="wa-track-btn">Request Link via WhatsApp</button>
-                    </div>
-                </div>
-            </div>
-
-            <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
-            </p>
-        </div>
-    </div>
-
-
-    <!-- ================= 6. VIP CUSTOMER PROFILE VIEW ================= -->
-    <div id="profile-view" class="view-section">
-        <div class="form-box glass-panel" style="max-width: 800px;">
-            <div class="tag-sub" style="text-align: center;">SOMACA ATELIER</div>
-            <h2 class="luxury-font section-heading">VIP Dashboard</h2>
-
-            <div class="auth-tabs" style="margin-bottom: 30px; justify-content: center;">
-                <button class="auth-tab active" onclick="switchProfileTab('profile-tab')">Personal Profile</button>
-                <button class="auth-tab" onclick="switchProfileTab('orders-tab')">My Orders</button>
-                <button class="auth-tab" onclick="switchProfileTab('help-tab')">Help Center</button>
-            </div>
-
-            <!-- Profile Tab -->
-            <div id="profile-tab" class="profile-tab-content active">
-                <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 20px;">Personal Information</h3>
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="prof-name" class="glass-input">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="prof-email" class="glass-input" disabled style="opacity: 0.7;">
-                </div>
-                <div class="form-group">
-                    <label>Mobile Number</label>
-                    <input type="tel" id="prof-phone" class="glass-input">
-                </div>
-                <div class="form-group">
-                    <label>Saved Delivery Address</label>
-                    <textarea id="prof-address" class="glass-input" rows="3" placeholder="House no, Street, City, State, Pincode"></textarea>
-                </div>
-                <button class="btn-main glow-btn" onclick="saveProfile()">Save Changes</button>
-                <div style="margin-top: 20px; text-align: center;">
-                    <button class="btn-main" style="background: transparent; border: 1px solid var(--pink-accent); color: var(--pink-accent); padding: 8px 16px;" onclick="logOut()">Sign Out</button>
-                </div>
-            </div>
-
-            <!-- Orders Tab -->
-            <div id="orders-tab" class="profile-tab-content" style="display: none;">
-                <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 20px;">Order History</h3>
-                <div id="profile-orders-list">
-                    <!-- Orders injected here -->
-                </div>
-            </div>
-
-            <!-- Help Center Tab -->
-            <div id="help-tab" class="profile-tab-content" style="display: none;">
-                <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 20px;">VIP Support</h3>
-                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">For priority assistance with your botanical rituals or orders, connect with our Sommelier.</p>
-                <button class="btn-main" style="background-color: #25D366; border: none; color: #000; width: 100%; margin-bottom: 15px;" onclick="window.open('https://wa.me/918373960622', '_blank')">Contact via WhatsApp</button>
-                <p style="text-align: center; color: var(--text-muted); font-size: 13px;">Email: <a href="mailto:houseofsomaca@gmail.com" style="color: var(--gold);">houseofsomaca@gmail.com</a></p>
-
-                <h4 class="luxury-font" style="color: var(--gold); margin-top: 30px; margin-bottom: 15px;">Quick FAQs</h4>
-                <div style="text-align: left; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 6px; border: 1px solid var(--border-subtle);">
-                    <p style="color: #fff; font-size: 13px; font-weight: bold;">How long does delivery take?</p>
-                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 15px;">Standard delivery takes 5-7 business days across India.</p>
-
-                    <p style="color: #fff; font-size: 13px; font-weight: bold;">Is the product 100% natural?</p>
-                    <p style="color: var(--text-muted); font-size: 12px;">Yes, SOMACA uses pure botanical extracts with zero chemical fillers.</p>
-                </div>
-            </div>
-
-            <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
-            </p>
-        </div>
-    </div>
-
-
-    <!-- ================= 7. STAFF / EMPLOYEE AUTH VIEW ================= -->
-    <div id="staff-auth-view" class="view-section">
-        <div class="form-box auth-form-box glass-panel">
-            <div class="auth-tabs">
-                <button class="auth-tab active" onclick="toggleStaffAuth('signin')">Staff Login</button>
-                <button class="auth-tab" onclick="toggleStaffAuth('register')">First-Time Setup</button>
-            </div>
-
-            <div id="staff-signin-section" class="auth-section active">
-                <div class="tag-sub" style="text-align: center;">SECURE ACCESS</div>
-                <h2 class="luxury-font section-heading" style="font-size: 28px;">Atelier Portal</h2>
-                <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 25px;">Enter your Employee ID and password.</p>
-
-                <div class="form-group">
-                    <label>Employee ID or Official Email</label>
-                    <input type="text" id="staff-login-id" class="glass-input" placeholder="e.g. SMC-976745@S or email">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="staff-login-pass" class="glass-input" placeholder="••••••••">
-                </div>
-
-                <button class="btn-main glow-btn" style="width: 100%; margin-top: 10px; margin-bottom: 20px;" onclick="staffSignIn()">Access Portal</button>
-
-                <div style="display: flex; gap: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
-                    <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); padding: 8px; font-size: 11px;" onclick="staffForgotPassword()">Forgot Password?</button>
-                    <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); padding: 8px; font-size: 11px;" onclick="staffForgotId()">Forgot Gmail / ID?</button>
-                </div>
-            </div>
-
-            <div id="staff-register-section" class="auth-section" style="display: none;">
-                <div class="tag-sub" style="text-align: center;">REGISTRY VERIFICATION</div>
-                <h2 class="luxury-font section-heading" style="font-size: 28px;">Staff Setup</h2>
-                <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-bottom: 25px;">Verify your details against the company registry to set a password.</p>
-
-                <div class="form-group">
-                    <label>Employee ID</label>
-                    <input type="text" id="staff-reg-id" class="glass-input" placeholder="e.g. SMC-976745@S">
-                </div>
-                <div class="form-group">
-                    <label>Official Email</label>
-                    <input type="email" id="staff-reg-email" class="glass-input" placeholder="name@somaca.com">
-                </div>
-                <div class="form-group">
-                    <label>Set Password</label>
-                    <input type="password" id="staff-reg-pass" class="glass-input" placeholder="••••••••">
-                </div>
-
-                <button class="btn-main glow-btn" style="width: 100%; margin-top: 10px;" onclick="staffRegister()">Verify & Register</button>
-            </div>
-
-            <p style="text-align: center; margin-top: 25px; font-size: 12px;">
-                <a href="javascript:void(0)" onclick="switchView('home-view')" style="color: var(--text-muted); text-decoration: none;">← Back to Store</a>
-            </p>
-        </div>
-    </div>
-
-
-    <!-- ================= 8. STAFF / ATELIER DASHBOARD VIEW ================= -->
-    <div id="staff-dashboard-view" class="view-section">
-        <div class="form-box glass-panel" style="max-width: 900px; padding: 30px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <div>
-                    <div class="tag-sub">INTERNAL DASHBOARD</div>
-                    <h2 class="luxury-font section-heading" style="margin-bottom: 0; text-align: left;">Atelier Portal</h2>
-                    <p style="color: var(--gold); font-size: 13px;" id="staff-welcome-msg">Welcome, Staff</p>
-                </div>
-                <button class="btn-main" style="background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 16px;" onclick="staffLogOut()">Logout</button>
-            </div>
-
-            <div class="auth-tabs" style="margin-bottom: 20px;">
-                <button class="auth-tab active" onclick="switchStaffTab('staff-orders-tab')">Orders Management</button>
-                <button class="auth-tab" id="hr-metrics-tab-btn" style="display:none;" onclick="switchStaffTab('staff-hr-tab')">HR & Metrics</button>
-                <button class="auth-tab" onclick="switchStaffTab('staff-profile-tab')">Profile Settings</button>
-            </div>
-
-            <div id="staff-orders-tab" class="profile-tab-content active">
-                <div class="form-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
-                    <input type="text" id="staff-search-input" class="glass-input" placeholder="Search Order ID, Name, or Phone..." style="flex: 1;" onkeyup="filterStaffOrders()">
-                </div>
-
-                <div class="staff-orders-container" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
-                    <table style="width: 100%; border-collapse: collapse; color: var(--text-main); font-size: 13px;" id="staff-orders-table">
-                        <thead>
-                            <tr style="border-bottom: 1px solid var(--border-subtle); color: var(--gold); text-align: left;">
-                                <th style="padding: 12px 8px;">Order ID</th>
-                                <th style="padding: 12px 8px;">Customer Details</th>
-                                <th style="padding: 12px 8px;">Status / AWB</th>
-                                <th style="padding: 12px 8px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="staff-orders-body">
-                            <!-- Orders populated by JS from Firestore -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="staff-hr-tab" class="profile-tab-content" style="display:none;">
-                <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 15px;">Business Metrics</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
-                    <div class="glass-panel" style="padding: 20px; text-align: center;">
-                        <div style="font-size: 24px; font-weight: bold; color: #fff;" id="metric-total-orders">0</div>
-                        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Total Orders</div>
-                    </div>
-                    <div class="glass-panel" style="padding: 20px; text-align: center;">
-                        <div style="font-size: 24px; font-weight: bold; color: var(--gold);" id="metric-total-revenue">₹0</div>
-                        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Total Revenue</div>
-                    </div>
-                </div>
-
-                <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 15px;">Manage Staff Registry</h3>
-                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 15px;">Add authorized personnel to the database.</p>
-
-                <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 15px; border-radius: 6px; margin-bottom: 25px; display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px; align-items: end;">
-                    <div>
-                        <label style="color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Emp ID</label>
-                        <input type="text" id="new-staff-id" class="glass-input" placeholder="SOM-10X" style="padding: 8px;">
-                    </div>
-                    <div>
-                        <label style="color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Name</label>
-                        <input type="text" id="new-staff-name" class="glass-input" placeholder="Staff Name" style="padding: 8px;">
-                    </div>
-                    <div>
-                        <label style="color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Email</label>
-                        <input type="email" id="new-staff-email" class="glass-input" placeholder="name@somaca.com" style="padding: 8px;">
-                    </div>
-                    <button class="btn-main glow-btn" style="padding: 9px 15px; font-size: 11px;" onclick="addStaffMember()">Add</button>
-                </div>
-
-                <div id="staff-registry-list" style="font-size: 13px;">
-                    <!-- Staff list populated from Firestore -->
-                </div>
-            </div>
-
-            <div id="staff-profile-tab" class="profile-tab-content" style="display:none;">
-                <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 15px;">Account Settings</h3>
-
-                <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 20px; border-radius: 6px; margin-bottom: 25px;">
-                    <h4 style="color: #fff; font-size: 14px; margin-bottom: 15px;">Change Password</h4>
-                    <div class="form-group">
-                        <label style="color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">New Password</label>
-                        <input type="password" id="staff-new-pass" class="glass-input" placeholder="Enter new password">
-                    </div>
-                    <button class="btn-main glow-btn" style="padding: 10px 20px; font-size: 12px; width: 100%; margin-bottom: 15px;" onclick="staffChangePassword()">Update Password</button>
-
-                    <h4 style="color: #fff; font-size: 14px; margin-bottom: 15px; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">Change Email</h4>
-                    <div class="form-group">
-                        <label style="color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">New Email Address</label>
-                        <input type="email" id="staff-new-email" class="glass-input" placeholder="Enter new email address">
-                    </div>
-                    <button class="btn-main glow-btn" style="padding: 10px 20px; font-size: 12px; width: 100%; margin-bottom: 15px;" onclick="staffChangeEmail()">Update Email</button>
-                    <h4 style="color: #fff; font-size: 14px; margin-top: 25px; margin-bottom: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">Recovery Options</h4>
-                    <div style="display: flex; gap: 15px;">
-                        <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); padding: 8px; font-size: 11px;" onclick="staffForgotPassword()">Forgot Password?</button>
-                        <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); padding: 8px; font-size: 11px;" onclick="staffForgotId()">Forgot Gmail / ID?</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Email Confirmation Modal for Magic Link -->
-    <div id="email-confirm-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content glass-panel" style="max-width: 400px; text-align: center;">
-            <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 10px;">Security Verification</h3>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Please confirm your email address to sign in.</p>
-
-            <div class="form-group">
-                <input type="email" id="confirm-email-input" class="glass-input" placeholder="name@example.com">
-            </div>
-
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);" onclick="document.getElementById('email-confirm-modal').style.display='none'">Cancel</button>
-                <button class="btn-main glow-btn" style="flex: 1;" onclick="completeMagicLinkSignIn()">Confirm</button>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- ================= 9. PRODUCT MANAGER VIEW ================= -->
-    <div id="product-manager-view" class="view-section">
-        <div class="form-box glass-panel" style="max-width: 900px; padding: 30px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <div>
-                    <div class="tag-sub">SIMPLE DB</div>
-                    <h2 class="luxury-font section-heading" style="margin-bottom: 0; text-align: left;">Product Manager</h2>
-                </div>
-                <button class="btn-main" style="background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 16px;" onclick="switchView('home-view')">Exit</button>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 15px; border-radius: 6px; margin-bottom: 25px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h4 style="color: var(--gold); font-size: 14px; margin: 0;">Add / Edit Product</h4>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="hero-vid-url" class="glass-input" style="padding:6px; font-size: 10px; width: 150px;" placeholder="Update Hero Video URL">
-                        <button class="btn-main" style="padding: 6px 10px; font-size: 10px;" onclick="updateHeroVideo()">Save Video</button>
-                    </div>
-                </div>
-
-                <input type="hidden" id="prod-edit-id">
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-                    <div><label style="font-size: 10px; color: var(--text-muted);">Name</label><input type="text" id="prod-name" class="glass-input" style="padding:8px;" placeholder="e.g. Artisanal Oud"></div>
-                    <div>
-                        <label style="font-size: 10px; color: var(--text-muted);">Category</label>
-                        <select id="prod-cat" class="glass-input" style="padding:8px;">
-                            <option value="Authentic Perfume Oils">Authentic Perfume Oils</option>
-                            <option value="Signature Gifting">Signature Gifting</option>
-                        </select>
-                    </div>
-                    <div><label style="font-size: 10px; color: var(--text-muted);">MRP (₹)</label><input type="number" id="prod-mrp" class="glass-input" style="padding:8px;" placeholder="e.g. 599"></div>
-                    <div><label style="font-size: 10px; color: var(--text-muted);">Selling Price (₹)</label><input type="number" id="prod-price" class="glass-input" style="padding:8px;" placeholder="e.g. 199"></div>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <label style="font-size: 10px; color: var(--text-muted);">Key Notes / Highlights</label>
-                    <input type="text" id="prod-notes" class="glass-input" style="padding:8px;" placeholder="e.g. Long-Lasting Oud & Rose Notes">
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <label style="font-size: 10px; color: var(--text-muted);">Description</label>
-                    <input type="text" id="prod-desc" class="glass-input" style="padding:8px;" placeholder="e.g. A luxurious blend of pure elements.">
-                </div>
-                <div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-end;">
-                    <div style="flex: 1;">
-                        <label style="font-size: 10px; color: var(--text-muted);">Image URL</label>
-                        <input type="text" id="prod-img" class="glass-input" style="padding:8px;" placeholder="e.g. https://images.unsplash.com/...">
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 4px; border: 1px solid var(--border-subtle);">
-                        <input type="checkbox" id="prod-coming-soon">
-                        <label style="font-size: 10px; color: var(--gold); margin: 0;">Is Coming Soon?</label>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-main glow-btn" style="padding: 9px 15px; font-size: 11px; flex: 1;" onclick="addManagerProduct()" id="btn-save-prod">Save Product</button>
-                    <button class="btn-main" style="padding: 9px 15px; font-size: 11px; flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);" onclick="clearManagerForm()">Clear</button>
-                </div>
-            </div>
-
-            <div class="staff-orders-container" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
-                <table style="width: 100%; border-collapse: collapse; color: var(--text-main); font-size: 13px;">
+        <!-- 8. "Why Pure Oil?" Comparison Matrix -->
+        <section class="reveal" style="padding: 80px 20px; background: #050505;">
+            <h3 class="luxury-font section-heading" style="text-align: center;">The Pure Elixir Advantage</h3>
+            <div style="max-width: 800px; margin: 0 auto; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 13px;">
                     <thead>
-                        <tr style="border-bottom: 1px solid var(--border-subtle); color: var(--gold); text-align: left;">
-                            <th style="padding: 12px 8px;">Image</th>
-                            <th style="padding: 12px 8px;">Details</th>
-                            <th style="padding: 12px 8px;">Price</th>
-                            <th style="padding: 12px 8px;">Action</th>
+                        <tr>
+                            <th style="padding: 20px; border-bottom: 1px solid var(--border-subtle); color: var(--text-muted); font-weight: normal; letter-spacing: 2px;">Feature</th>
+                            <th style="padding: 20px; border-bottom: 1px solid var(--gold); color: var(--gold); font-weight: 600; letter-spacing: 2px;">SOMACA 10ml Artisanal Oil</th>
+                            <th style="padding: 20px; border-bottom: 1px solid #333; color: #666; font-weight: normal; letter-spacing: 2px;">Ordinary Alcohol Spray</th>
                         </tr>
                     </thead>
-                    <tbody id="manager-products-body">
-                        <!-- Products populated by JS -->
+                    <tbody style="color: #ccc;">
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid #111;">Composition</td>
+                            <td style="padding: 15px; border-bottom: 1px solid rgba(212,175,55,0.2); color: #fff;">100% Pure Botanical Extracts</td>
+                            <td style="padding: 15px; border-bottom: 1px solid #111; color: #666;">80% Harsh Alcohol & Gas</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid #111;">Longevity</td>
+                            <td style="padding: 15px; border-bottom: 1px solid rgba(212,175,55,0.2); color: #fff;">12-24 Hours Projection</td>
+                            <td style="padding: 15px; border-bottom: 1px solid #111; color: #666;">Fades in 2 Hours</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid #111;">Skin Impact</td>
+                            <td style="padding: 15px; border-bottom: 1px solid rgba(212,175,55,0.2); color: #fff;">Nourishing & Hydrating</td>
+                            <td style="padding: 15px; border-bottom: 1px solid #111; color: #666;">Drying & Irritating</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid #111;">Aging Process</td>
+                            <td style="padding: 15px; border-bottom: 1px solid rgba(212,175,55,0.2); color: #fff;">45-Day Vintage Maceration</td>
+                            <td style="padding: 15px; border-bottom: 1px solid #111; color: #666;">Mass Factory Produced</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Simple Passcode Modal -->
-    <div id="passcode-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content glass-panel" style="max-width: 400px; text-align: center;">
-            <h3 class="luxury-font" style="color: var(--gold); margin-bottom: 10px;">Manager Access</h3>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Enter the 6-digit access passcode.</p>
-
-            <div class="form-group">
-                <input type="password" id="passcode-input" class="glass-input otp-input" placeholder="• • • • • •" maxlength="6" style="text-align: center; font-size: 24px; letter-spacing: 8px;">
+        <!-- 7. Anatomy of the Bottle & Value Visualizer -->
+        <section class="reveal" style="padding: 80px 20px; background: var(--bg-base);">
+            <h3 class="luxury-font section-heading" style="text-align: center;">Anatomy of the Elixir</h3>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(18,18,18,0.4); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 40px; position: relative;">
+                <ul style="list-style: none; padding: 0; color: #fff; font-size: 13px; display: flex; flex-direction: column; gap: 20px;">
+                    <li><span style="color: var(--gold); margin-right: 10px;">1.</span> <b>24K Gold-Finished Precision Rollerball:</b> Leak-proof smooth glide on pulse points.</li>
+                    <li><span style="color: var(--gold); margin-right: 10px;">2.</span> <b>UV-Protected Dark Frosted Glass:</b> Preserves botanical potency and maceration for 5+ years.</li>
+                    <li><span style="color: var(--gold); margin-right: 10px;">3.</span> <b>100% Undiluted Perfume Oil:</b> 0% Alcohol, 0% Water. Pure liquid gold.</li>
+                </ul>
+                <div style="margin-top: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--gold);">10ml Pure Oil = 200+ Royal Swipes</div>
+                    <div style="font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 5px;">Outlasts a 100ml Alcohol Spray Bottle (3 Months of Daily Luxury)</div>
+                </div>
             </div>
+        </section>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn-main" style="flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);" onclick="closePasscodeModal()">Cancel</button>
-                <button class="btn-main glow-btn" style="flex: 1;" onclick="verifyManagerPasscode()">Access</button>
+            <a href="javascript:void(0)" class="luxury-font" style="font-size: 1.8rem; letter-spacing: 0.3em; color: var(--gold); text-decoration: none; font-weight: 600;">S O M A C A</a>
+
+            <div style="flex: 1; display: flex; gap: 20px; justify-content: flex-end; align-items: center;">
+                <!-- Right nav items will go here -->
+                <button style="background: none; border: none; color: #fff; cursor: pointer;">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button style="background: none; border: none; color: #fff; cursor: pointer; position: relative;">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span style="position: absolute; top: -5px; right: -8px; background: var(--gold); color: #000; font-size: 9px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">0</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 3. Zero-Video Liquid Gold Hero -->
+        <section id="hero-section" style="position: relative; width: 100%; height: 85vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center;">
+            <canvas id="hero-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;"></canvas>
+            <!-- Radial Spotlight Overlay handled in Canvas/CSS -->
+            <div id="hero-spotlight" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.15) 0%, rgba(8,8,8,0.9) 70%); transition: background 0.1s;"></div>
+
+            <div style="z-index: 1; padding: 20px;">
+                <h1 class="luxury-font shimmer-text" style="font-size: 4rem; letter-spacing: 0.15em; margin-bottom: 10px; color: var(--gold);">HOUSE OF SOMACA</h1>
+                <p style="font-size: 1.1rem; letter-spacing: 0.2em; color: var(--text-main); margin-bottom: 40px; font-weight: 300; text-transform: uppercase;">Pure Botanical Luxury & Artisanal Cosmetics</p>
+                <button class="hero-cta">Explore Collections</button>
+            </div>
+        </section>
+
+        <!-- 4. Luxury USP Marquee -->
+        <div class="marquee-strip">
+            <div class="marquee-content">
+                <span><b style="color:var(--gold)">✧</b> 0% Alcohol (100% Pure Botanical Oil)</span>
+                <span><b style="color:var(--gold)">✧</b> 12+ Hours Skin & 24+ Hours Fabric Projection</span>
+                <span><b style="color:var(--gold)">✧</b> Aged 45 Days in Dark Glass Vaults</span>
+                <span><b style="color:var(--gold)">✧</b> Handcrafted Small Batch #01 (Zero Expiry Vintage Elixir)</span>
+
+                <span><b style="color:var(--gold)">✧</b> 0% Alcohol (100% Pure Botanical Oil)</span>
+                <span><b style="color:var(--gold)">✧</b> 12+ Hours Skin & 24+ Hours Fabric Projection</span>
+                <span><b style="color:var(--gold)">✧</b> Aged 45 Days in Dark Glass Vaults</span>
+                <span><b style="color:var(--gold)">✧</b> Handcrafted Small Batch #01 (Zero Expiry Vintage Elixir)</span>
             </div>
         </div>
-    </div>
 
-    <!-- JavaScript to Handle Views & WhatsApp Order Generator -->
+    </div>
     <script src="Script.js"></script>
 
-    <!-- Custom Gold Cursor -->
-    <div id="custom-cursor"></div>
-
-    <!-- Ambient Audio Toggle -->
-    <button id="audio-toggle" onclick="toggleAudio()" title="Toggle Ambient Sound">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-        </svg>
-    </button>
-    <audio id="ambient-audio" loop src="assets/audio/ambient.mp3"></audio>
-
-    <!-- Mobile Sticky Bottom Buy Bar -->
-    <div class="mobile-sticky-buy-bar">
-        <div style="font-size: 11px; color: #fff;">SOMACA Oudh & Vanille (10ml) — <span style="color: var(--gold); font-weight: bold;">₹499</span></div>
-        <button class="hero-explore-btn" style="padding: 8px 15px; font-size: 10px;" onclick="buyNow('prod_1')">Order Now</button>
+    <!-- Floating Live Reservation Toast -->
+    <div id="live-reservation-toast" class="glass-panel" style="position: fixed; bottom: 30px; left: -300px; padding: 12px 20px; border-left: 2px solid var(--gold); border-radius: 4px; display: flex; align-items: center; gap: 12px; z-index: 998; transition: left 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        <div style="width: 8px; height: 8px; background: #25D366; border-radius: 50%; box-shadow: 0 0 8px #25D366; animation: pulse 2s infinite;"></div>
+        <div style="font-size: 10px; color: #fff; line-height: 1.4;">A patron in <span id="toast-city" style="color: var(--gold);">South Delhi</span> just reserved<br><b id="toast-prod">SOMACA Oudh & Vanille</b> — Batch #01</div>
     </div>
-
-    <!-- Floating Perfumer Concierge -->
-    <a href="https://wa.me/918373960622?text=Hello%20SOMACA,%20I%20have%20a%20query%20regarding%20your%20perfumes." target="_blank" rel="noopener noreferrer" class="floating-wa" title="Ask Our Perfumer">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-            <path d="M12.01 2.01A10 10 0 0 0 2.45 15.6L1 21l5.54-1.4A10 10 0 1 0 12.01 2.01zm-3.3 5.42c.16 0 .32.01.46.01.16 0 .37-.06.58.42s.7 1.7.76 1.83c.06.12.1.27.02.43s-.12.26-.24.4l-.36.4c-.13.12-.27.26-.12.5s.44.75.8 1.07c.45.41.9.56 1.15.7s.39.18.53.05c.15-.13.62-.73.79-.97.16-.25.32-.2.53-.13s1.37.65 1.6 77.24.4.4.52.26.81-.35 1.07s-.18.77-.52 1.07c-.34.3-2.02 1.04-2.83 1.04s-1.83-.24-3.15-.99c-1.32-.75-2.8-2.22-3.85-3.64-1.04-1.42-1.84-2.84-1.84-4.27s.76-2.12 1.04-2.43c.27-.3.6-.37.8-.37z"/>
-        </svg>
-    </a>
 
 </body>
 </html>
