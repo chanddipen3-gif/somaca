@@ -9,22 +9,22 @@
 </head>
 <body>
 
-    <!-- 1. FIXED LUXURY HEADER -->
+    <!-- 1. HEADER & ANNOUNCEMENT -->
     <div class="announcement-bar">
-        0% Alcohol Pure Botanical Oils | Free Express Shipping on Prepaid Orders
+        <p>0% Alcohol Pure Botanical Oils | Free Express Shipping on Prepaid Orders</p>
     </div>
     <header class="main-header">
         <div class="container header-container">
-            <div style="flex: 1;">
-                <button class="icon-btn" style="padding-left: 0;">
+            <div class="header-left">
+                <button class="icon-btn" aria-label="Menu">
                     <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
             </div>
-            <div style="flex: 1; text-align: center;">
+            <div class="header-center">
                 <a href="javascript:void(0)" class="brand-logo">SOMACA</a>
             </div>
-            <div style="flex: 1; display: flex; justify-content: flex-end;">
-                <button class="icon-btn" onclick="toggleCart()">
+            <div class="header-right">
+                <button class="icon-btn" id="open-cart-btn" aria-label="Cart">
                     <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     <span class="cart-badge" id="cart-badge-count">0</span>
                 </button>
@@ -32,15 +32,17 @@
         </div>
     </header>
 
-    <!-- 2. SYMMETRICAL HERO SECTION -->
+    <!-- 2. HERO SECTION -->
     <section class="hero-section">
-        <div class="hero-badge">BATCH #01 LIMITED EDITION</div>
-        <h1 style="margin-bottom: 16px;">HOUSE OF SOMACA</h1>
-        <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dim); margin-bottom: 40px; font-size: 0.85rem;">Pure Botanical Luxury & Artisanal 10ml Roll-On Elixirs</p>
-        <button class="btn-gold" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">Explore Collection</button>
+        <div class="container hero-container">
+            <div class="hero-badge">BATCH #01 LIMITED EDITION</div>
+            <h1 class="hero-title">HOUSE OF SOMACA</h1>
+            <p class="hero-subtitle">Pure Botanical Luxury & Artisanal 10ml Roll-On Elixirs</p>
+            <button class="btn-gold" id="explore-btn">Explore Collection</button>
+        </div>
     </section>
 
-    <!-- 3. 4-PILLAR TRUST STRIP -->
+    <!-- 3. TRUST STRIP -->
     <section class="trust-strip">
         <div class="container trust-grid">
             <div class="trust-item"><p>0% Alcohol (100% Pure Oil)</p></div>
@@ -50,93 +52,92 @@
         </div>
     </section>
 
-    <!-- 4. UNIFORM PRODUCT COLLECTION GRID -->
-    <section class="products-section" id="shop">
+    <!-- 4. PRODUCT COLLECTION -->
+    <section class="products-section" id="collection">
         <div class="container">
             <h2 class="section-title">The Royal Collection</h2>
             <div class="product-grid" id="product-grid-container">
-                <!-- Populated by JS -->
+                <!-- Products populated by JS -->
             </div>
         </div>
     </section>
 
-    <!-- 5. CLEAN "WHY PURE OIL" & UNBOXING SPLIT SECTION -->
+    <!-- 5. UNBOXING SPLIT SECTION -->
     <section class="split-section">
         <div class="container split-grid">
-            <div>
-                <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=80" alt="Somaca Unboxing" class="split-image">
+            <div class="split-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=80" alt="Somaca Royal Unboxing" class="split-image">
             </div>
-            <div>
-                <h2 style="margin-bottom: 24px;">The Pure Elixir Advantage</h2>
-                <p style="margin-bottom: 24px;">Unlike ordinary 80% alcohol sprays that evaporate quickly and dry the skin, SOMACA 10ml Roll-Ons are crafted from 100% pure, undiluted botanical oils.</p>
+            <div class="split-content">
+                <h2 class="split-title">The Pure Elixir Advantage</h2>
+                <p class="split-desc">Unlike ordinary 80% alcohol sprays that evaporate quickly and dry the skin, SOMACA 10ml Roll-Ons are crafted from 100% pure, undiluted botanical oils.</p>
                 <ul class="checklist">
                     <li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 100% Pure Botanical Extracts</li>
                     <li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 12-24 Hours Projection</li>
                     <li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Skin-Nourishing & Hydrating</li>
                     <li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 45-Day Vintage Maceration</li>
                 </ul>
-                <div style="margin-top: 32px; padding: 16px; border: 1px solid var(--gold-primary); text-align: center; border-radius: 4px;">
-                    <p style="color: var(--gold-primary); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Includes Free 2ml Discovery Trial Vial</p>
+                <div class="discovery-promo">
+                    <p>Includes Free 2ml Discovery Trial Vial</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 6. CLEAN SLIDE-OUT CART DRAWER -->
-    <div class="drawer-overlay" id="drawer-overlay" onclick="toggleCart()"></div>
-    <div class="cart-drawer" id="cart-drawer">
+    <!-- 6. SLIDE-OUT CART DRAWER -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
-            <h3 style="font-size: 1.2rem;">Your Royal Bag</h3>
-            <button class="icon-btn" onclick="toggleCart()">
+            <h3>Your Royal Bag</h3>
+            <button class="icon-btn" id="close-cart-btn" aria-label="Close Cart">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
 
         <div class="cart-body" id="cart-items">
-            <div style="text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.9rem;" id="cart-empty-msg">
-                Your bag is currently empty.
-            </div>
+            <!-- Populated by JS -->
         </div>
 
         <div class="cart-footer">
-            <label style="display: flex; gap: 10px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; cursor: pointer;">
-                <input type="checkbox" id="gift-checkbox" onchange="document.getElementById('gift-note').style.display = this.checked ? 'block' : 'none'">
-                Add a personalized gift note
-            </label>
-            <textarea id="gift-note" style="display: none; width: 100%; padding: 10px; background: var(--bg-dark); border: 1px solid var(--border-gold); color: #fff; margin-bottom: 20px; font-family: var(--font-sans); font-size: 0.8rem;" rows="2" placeholder="Enter your message..."></textarea>
+            <div class="cart-gift-note">
+                <label>
+                    <input type="checkbox" id="gift-checkbox"> Add a personalized gift note
+                </label>
+                <textarea id="gift-note-input" rows="2" placeholder="Enter your message..." style="display: none;"></textarea>
+            </div>
 
-            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; color: #fff;">
+            <div class="cart-total-row">
                 <span>Total</span>
                 <span id="cart-total-price">₹0</span>
             </div>
 
-            <button class="btn-gold btn-fill" style="width: 100%; margin-bottom: 12px; font-size: 0.75rem;" onclick="checkoutUPI()">Pay Online via UPI (Free Shipping)</button>
-            <a href="https://wa.me/918373960622?text=Hello%20SOMACA,%20I%20would%20like%20to%20order." target="_blank" rel="noopener noreferrer" class="btn-gold" style="width: 100%; display: block; border-color: var(--text-muted); color: var(--text-muted); font-size: 0.75rem;">Order via WhatsApp</a>
+            <button class="btn-gold btn-fill" id="checkout-upi-btn" style="width: 100%; margin-bottom: 12px;">Pay Online via UPI (Free Shipping)</button>
+            <button class="btn-gold" id="checkout-wa-btn" style="width: 100%;">Order via WhatsApp</button>
         </div>
-    </div>
+    </aside>
 
-    <!-- 7. STRUCTURED FOOTER & MOBILE STICKY BAR -->
-    <footer class="footer">
+    <!-- 7. FOOTER & STICKY BAR -->
+    <footer class="main-footer">
         <div class="container">
-            <h3 style="font-size: 1.5rem; letter-spacing: 0.2em; margin-bottom: 24px;">S O M A C A</h3>
-            <p style="max-width: 600px; margin: 0 auto 32px; font-size: 0.85rem;">Consciously crafted in India for modern luxury lovers who appreciate the finest botanical ingredients sourced globally.</p>
+            <h3 class="footer-logo">S O M A C A</h3>
+            <p class="footer-desc">Consciously crafted in India for modern luxury lovers who appreciate the finest botanical ingredients sourced globally.</p>
             <div class="footer-links">
                 <a href="javascript:void(0)">Our Story</a>
                 <a href="javascript:void(0)">Shipping & Returns</a>
                 <a href="javascript:void(0)">Privacy Policy</a>
                 <a href="https://www.instagram.com/houseofsomaca" target="_blank" rel="noopener noreferrer" style="color: var(--gold-primary);">Instagram</a>
             </div>
-            <p style="font-size: 0.75rem;">© 2026 HOUSE OF SOMACA. All rights reserved.</p>
+            <p class="footer-copy">© 2026 HOUSE OF SOMACA. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Mobile Sticky Buy Bar -->
     <div class="mobile-sticky-bar">
-        <div>
-            <div style="font-size: 0.7rem; font-weight: 600; color: #fff; letter-spacing: 1px;">SOMACA OUDH & VANILLE</div>
-            <div style="font-size: 0.85rem; color: var(--gold-primary);">₹499</div>
+        <div class="sticky-bar-info">
+            <div class="sticky-title">SOMACA OUDH & VANILLE</div>
+            <div class="sticky-price">₹499</div>
         </div>
-        <button class="btn-gold btn-fill" style="padding: 10px 20px; font-size: 0.7rem;" onclick="addToCart('p1')">Order Now</button>
+        <button class="btn-gold btn-fill" id="mobile-order-btn">Order Now</button>
     </div>
 
     <script src="Script.js"></script>
