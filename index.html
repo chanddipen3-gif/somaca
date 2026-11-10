@@ -110,6 +110,16 @@
                     <span>Grand Total</span> <span id="bill-total" style="color: var(--gold);">₹0</span>
                 </div>
 
+                <div style="margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; color: var(--gold); font-size: 11px;">
+                        <input type="checkbox" id="gift-checkbox" onchange="document.getElementById('gift-note-container').style.display = this.checked ? 'block' : 'none'">
+                        Sending as a Royal Gift? Add a free personalized message on our textured greeting card.
+                    </label>
+                    <div id="gift-note-container" style="display: none; margin-top: 10px;">
+                        <textarea id="gift-note-text" class="glass-input" rows="3" placeholder="Enter your custom note here..." style="font-size: 11px; padding: 8px; width: 100%;"></textarea>
+                    </div>
+                </div>
+
                 <button class="btn-main glow-btn" style="width: 100%;" onclick="proceedToCheckout()">Complete Order</button>
             </div>
         </div>
@@ -139,12 +149,7 @@
     </div>
 
 
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/918373960622?text=Hello%20SOMACA,%20I%20have%20a%20query%20regarding%20your%20products." target="_blank" rel="noopener noreferrer" class="floating-wa">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-            <path d="M12.01 2.01A10 10 0 0 0 2.45 15.6L1 21l5.54-1.4A10 10 0 1 0 12.01 2.01zm-3.3 5.42c.16 0 .32.01.46.01.16 0 .37-.06.58.42s.7 1.7.76 1.83c.06.12.1.27.02.43s-.12.26-.24.4l-.36.4c-.13.12-.27.26-.12.5s.44.75.8 1.07c.45.41.9.56 1.15.7s.39.18.53.05c.15-.13.62-.73.79-.97.16-.25.32-.2.53-.13s1.37.65 1.6 77.24.4.4.52.26.81-.35 1.07s-.18.77-.52 1.07c-.34.3-2.02 1.04-2.83 1.04s-1.83-.24-3.15-.99c-1.32-.75-2.8-2.22-3.85-3.64-1.04-1.42-1.84-2.84-1.84-4.27s.76-2.12 1.04-2.43c.27-.3.6-.37.8-.37z"/>
-        </svg>
-    </a>
+
 
     <div id="toast-container"></div>
 
@@ -154,7 +159,7 @@
         <!-- Luxury Hero Background Video Section -->
         <section class="hero-video-section">
             <video id="main-hero-video" class="hero-bg-video" autoplay loop muted playsinline>
-                <source src="https://videos.pexels.com/video-files/5753232/5753232-hd_1280_720_30fps.mp4" type="video/mp4">
+                <source src="assets/videos/luxury-hero.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay-dark"></div>
             <div class="hero-video-content reveal">
@@ -164,55 +169,139 @@
             </div>
         </section>
 
-        <!-- 6 Luxury Collections Grid -->
+        <!-- Luxury USP & Trust Marquee Strip -->
+        <div class="marquee-strip">
+            <div class="marquee-content">
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> 0% Alcohol • 100% Pure Perfume Oil</span>
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 12+ Hours Skin & Apparel Projection</span>
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Skin-Safe Botanical Extracts</span>
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 9.36l-7.1 7.1a1 1 0 0 1-1.41-1.41l7.1-7.1a6 6 0 0 1 9.36-7.94l-3.77 3.77a1 1 0 0 0 0 1.41z"></path></svg> Handcrafted in Exclusive Small Batches</span>
+                <!-- Duplicate for seamless looping -->
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> 0% Alcohol • 100% Pure Perfume Oil</span>
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 12+ Hours Skin & Apparel Projection</span>
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Skin-Safe Botanical Extracts</span>
+                <span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 9.36l-7.1 7.1a1 1 0 0 1-1.41-1.41l7.1-7.1a6 6 0 0 1 9.36-7.94l-3.77 3.77a1 1 0 0 0 0 1.41z"></path></svg> Handcrafted in Exclusive Small Batches</span>
+            </div>
+        </div>
+
+        <!-- Somaca Products Showcase -->
         <main class="collections-grid-section" id="collections-container">
-            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin: 60px 0 40px; font-size: 28px;">Our Collections</h3>
-            <div class="luxury-collections-grid">
+            <h3 class="luxury-font" style="color: var(--gold); text-align: center; margin: 60px 0 40px; font-size: 28px; letter-spacing: 2px; text-transform: uppercase;">Our Masterpieces</h3>
 
-                <div class="collection-card reveal" onclick="openCollection('Botanical Skincare & Face Rituals')">
-                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80" alt="Skincare">
-                    <div class="collection-card-overlay">
-                        <h4 class="luxury-font">Botanical Skincare & Face Rituals</h4>
-                    </div>
-                </div>
-
-                <div class="collection-card reveal" onclick="openCollection('Artisanal Fine Fragrances')">
-                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Fragrances">
-                    <div class="collection-card-overlay">
-                        <h4 class="luxury-font">Artisanal Fine Fragrances</h4>
-                    </div>
-                </div>
-
-                <div class="collection-card reveal" onclick="openCollection('Luxe Color & Makeup')">
-                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80" alt="Makeup">
-                    <div class="collection-card-overlay">
-                        <h4 class="luxury-font">Luxe Color & Makeup</h4>
-                    </div>
-                </div>
-
-                <div class="collection-card reveal" onclick="openCollection('Royal Hair Care Elixir')">
-                    <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80" alt="Hair Care">
-                    <div class="collection-card-overlay">
-                        <h4 class="luxury-font">Royal Hair Care Elixir</h4>
-                    </div>
-                </div>
-
-                <div class="collection-card reveal" onclick="openCollection('Velvet Body & Bath Care')">
-                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Bath Care">
-                    <div class="collection-card-overlay">
-                        <h4 class="luxury-font">Velvet Body & Bath Care</h4>
-                    </div>
-                </div>
-
-                <div class="collection-card reveal" onclick="openCollection('Signature Gifting Vault')">
-                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80" alt="Gifting">
-                    <div class="collection-card-overlay">
-                        <h4 class="luxury-font">Signature Gifting Vault</h4>
-                    </div>
-                </div>
-
+            <div class="products-row-container" id="somaca-perfumes-showcase" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <!-- Authentic Products rendered via JS -->
             </div>
         </main>
+
+        <!-- Interactive 20-Second Scent Finder Quiz -->
+        <section class="scent-finder-section reveal">
+            <h3 class="luxury-font section-heading">Find Your Signature Aura</h3>
+            <div id="quiz-step-1" class="quiz-step active-step">
+                <p>When will you wear it?</p>
+                <div class="quiz-options">
+                    <button class="hero-explore-btn" onclick="nextQuizStep('day')">Daytime Elegance</button>
+                    <button class="hero-explore-btn" onclick="nextQuizStep('night')">Midnight Statement</button>
+                </div>
+            </div>
+            <div id="quiz-step-2" class="quiz-step" style="display: none;">
+                <p>Choose your vibe:</p>
+                <div class="quiz-options">
+                    <button class="hero-explore-btn" onclick="showQuizResult('SOMACA Oudh & Vanille')">Deep & Woody</button>
+                    <button class="hero-explore-btn" onclick="showQuizResult('SOMACA Artisanal Amber & Rose')">Sweet & Warm</button>
+                    <button class="hero-explore-btn" onclick="showQuizResult('SOMACA Royal White Musk')">Clean & Powdery</button>
+                </div>
+            </div>
+            <div id="quiz-result" class="quiz-step" style="display: none;">
+                <h4 class="luxury-font" style="color: var(--gold); font-size: 20px;">Your Perfect Match</h4>
+                <div id="quiz-recommendation" style="margin: 20px 0; color: #fff; font-size: 14px;"></div>
+                <div style="display: flex; justify-content: center; gap: 15px;">
+                    <button class="hero-explore-btn" onclick="resetQuiz()" style="font-size: 10px; padding: 10px 20px;">Retake Quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Build Your Royal Trio Custom Bundle Builder -->
+        <section class="royal-trio-section reveal">
+            <div class="trio-container glass-panel">
+                <h3 class="luxury-font section-heading" style="margin-bottom: 10px;">Curate Your Royal Trio</h3>
+                <p style="color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">Pick Any 3 (10ml) Roll-Ons for ₹999 <span style="color: var(--gold);">(Save ₹498)</span></p>
+
+                <div class="trio-slots">
+                    <div class="trio-slot" id="slot-1" onclick="openBundleSelector(1)">+</div>
+                    <div class="trio-slot" id="slot-2" onclick="openBundleSelector(2)">+</div>
+                    <div class="trio-slot" id="slot-3" onclick="openBundleSelector(3)">+</div>
+                </div>
+
+                <button class="hero-explore-btn" id="add-trio-btn" style="width: 100%; margin-top: 30px; opacity: 0.5; pointer-events: none;" onclick="addTrioToCart()">Add Bundle to Cart - ₹999</button>
+            </div>
+
+            <!-- Hidden selector modal for slots -->
+            <div id="trio-selector" style="display: none; padding: 20px; background: #080808; border: 1px solid var(--gold); margin-top: 20px; border-radius: 4px;">
+                <h4 style="color: var(--gold); margin-bottom: 15px; font-size: 14px; text-align: center;">Select a Scent</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="hero-explore-btn" style="padding: 10px; font-size: 11px;" onclick="selectTrioItem('SOMACA Oudh & Vanille')">Oudh & Vanille</button>
+                    <button class="hero-explore-btn" style="padding: 10px; font-size: 11px;" onclick="selectTrioItem('SOMACA Royal White Musk')">Royal White Musk</button>
+                    <button class="hero-explore-btn" style="padding: 10px; font-size: 11px;" onclick="selectTrioItem('SOMACA Artisanal Amber & Rose')">Amber & Rose</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3-Stage Scent Evolution Timeline & Pulse Point Guide -->
+        <section class="scent-evolution-section reveal">
+            <h3 class="luxury-font section-heading">The Alchemy of Somaca</h3>
+
+            <div class="evolution-grid">
+                <div class="timeline-box glass-panel">
+                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">Scent Evolution</h4>
+                    <div class="timeline-step">
+                        <div class="time-marker">First 15 Mins</div>
+                        <div class="time-title">The Awakening</div>
+                        <div class="time-desc">Rich top botanical notes unfold.</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="time-marker">After 2 Hours</div>
+                        <div class="time-title">The Heart</div>
+                        <div class="time-desc">Warm vanilla, rose, and spices settle into your skin chemistry.</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="time-marker">12+ Hours</div>
+                        <div class="time-title">The Royal Trail</div>
+                        <div class="time-desc">Deep oudh and musk linger effortlessly on skin and clothes.</div>
+                    </div>
+                </div>
+
+                <div class="pulse-point-box glass-panel">
+                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;">The Art of Application</h4>
+                    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 20px;">For the most intimate and long-lasting projection, apply directly to your pulse points where the body's natural heat activates the pure oils.</p>
+                    <ul style="list-style: none; padding: 0; color: #fff; font-size: 13px; display: flex; flex-direction: column; gap: 15px;">
+                        <li><span style="color: var(--gold);">✧</span> Inside Wrists</li>
+                        <li><span style="color: var(--gold);">✧</span> Behind Earlobes</li>
+                        <li><span style="color: var(--gold);">✧</span> Collarbones</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Raw Botanical Ingredients & Unboxing -->
+        <section class="ingredients-unboxing-section reveal">
+            <h3 class="luxury-font section-heading">More Than A Perfume, It's A Keepsake</h3>
+            <div class="unboxing-grid">
+                <div class="raw-ingredients text-center glass-panel">
+                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Sacred Earth Elements</h4>
+                    <p style="color: var(--text-muted); font-size: 12px; line-height: 1.8;">Distilled from the rarest botanical treasures. We source genuine Raw Agarwood (Oudh), rich Vanilla Beans, authentic Kannauj Rose, and pure Saffron to ensure uncompromised luxury in every drop.</p>
+                </div>
+                <div class="unboxing-details text-center glass-panel">
+                    <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">The Royal Unboxing</h4>
+                    <ul style="list-style: none; padding: 0; color: #fff; font-size: 12px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                        <li>✓ Matte-Black Sliding Drawer Box</li>
+                        <li>✓ Deep Black Velvet Foam Insert</li>
+                        <li>✓ 3D Gold-Framed 10ml Bottle</li>
+                        <li>✓ Textured Greeting Card with Certificate of Batch #01 Authenticity</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
 
         <!-- Trust Badges Section -->
         <section class="trust-badges-section reveal">
@@ -752,12 +841,8 @@
                     <div>
                         <label style="font-size: 10px; color: var(--text-muted);">Category</label>
                         <select id="prod-cat" class="glass-input" style="padding:8px;">
-                            <option value="Botanical Skincare & Face Rituals">Botanical Skincare & Face Rituals</option>
-                            <option value="Artisanal Fine Fragrances">Artisanal Fine Fragrances</option>
-                            <option value="Luxe Color & Makeup">Luxe Color & Makeup</option>
-                            <option value="Royal Hair Care Elixir">Royal Hair Care Elixir</option>
-                            <option value="Velvet Body & Bath Care">Velvet Body & Bath Care</option>
-                            <option value="Signature Gifting Vault">Signature Gifting Vault</option>
+                            <option value="Authentic Perfume Oils">Authentic Perfume Oils</option>
+                            <option value="Signature Gifting">Signature Gifting</option>
                         </select>
                     </div>
                     <div><label style="font-size: 10px; color: var(--text-muted);">MRP (₹)</label><input type="number" id="prod-mrp" class="glass-input" style="padding:8px;" placeholder="e.g. 599"></div>
@@ -824,5 +909,31 @@
 
     <!-- JavaScript to Handle Views & WhatsApp Order Generator -->
     <script src="Script.js"></script>
+
+    <!-- Custom Gold Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Ambient Audio Toggle -->
+    <button id="audio-toggle" onclick="toggleAudio()" title="Toggle Ambient Sound">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+    </button>
+    <audio id="ambient-audio" loop src="assets/audio/ambient.mp3"></audio>
+
+    <!-- Mobile Sticky Bottom Buy Bar -->
+    <div class="mobile-sticky-buy-bar">
+        <div style="font-size: 11px; color: #fff;">SOMACA Oudh & Vanille (10ml) — <span style="color: var(--gold); font-weight: bold;">₹499</span></div>
+        <button class="hero-explore-btn" style="padding: 8px 15px; font-size: 10px;" onclick="buyNow('prod_1')">Order Now</button>
+    </div>
+
+    <!-- Floating Perfumer Concierge -->
+    <a href="https://wa.me/918373960622?text=Hello%20SOMACA,%20I%20have%20a%20query%20regarding%20your%20perfumes." target="_blank" rel="noopener noreferrer" class="floating-wa" title="Ask Our Perfumer">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M12.01 2.01A10 10 0 0 0 2.45 15.6L1 21l5.54-1.4A10 10 0 1 0 12.01 2.01zm-3.3 5.42c.16 0 .32.01.46.01.16 0 .37-.06.58.42s.7 1.7.76 1.83c.06.12.1.27.02.43s-.12.26-.24.4l-.36.4c-.13.12-.27.26-.12.5s.44.75.8 1.07c.45.41.9.56 1.15.7s.39.18.53.05c.15-.13.62-.73.79-.97.16-.25.32-.2.53-.13s1.37.65 1.6 77.24.4.4.52.26.81-.35 1.07s-.18.77-.52 1.07c-.34.3-2.02 1.04-2.83 1.04s-1.83-.24-3.15-.99c-1.32-.75-2.8-2.22-3.85-3.64-1.04-1.42-1.84-2.84-1.84-4.27s.76-2.12 1.04-2.43c.27-.3.6-.37.8-.37z"/>
+        </svg>
+    </a>
+
 </body>
 </html>

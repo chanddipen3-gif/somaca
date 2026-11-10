@@ -198,38 +198,46 @@ function seedDefaultProducts() {
     let products = JSON.parse(localStorage.getItem('somaca_products'));
     if (!products || products.length === 0) {
         products = [
-            // Botanical Skincare & Face Rituals
-            { id: "prod_1", name: "Botanical Facial Kit", category: "Botanical Skincare & Face Rituals", mrp: 599, price: 199, notes: "Neem, Haldi & Multani Mitti", desc: "Experience pure botanical radiance with our signature facial kit.", img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_2", name: "Radiance Serum", category: "Botanical Skincare & Face Rituals", mrp: 1299, price: 999, notes: "Kumkumadi & Rosehip", desc: "A luxurious nighttime elixir for glowing skin.", img: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_3", name: "Rose Water Toner", category: "Botanical Skincare & Face Rituals", mrp: 499, price: 349, notes: "Pure Kannauj Rose", desc: "Instantly hydrates and balances pH.", img: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-
-            // Artisanal Fine Fragrances
-            { id: "prod_4", name: "Artisanal Eau De Parfum", category: "Artisanal Fine Fragrances", mrp: 1499, price: 899, notes: "Long-Lasting Oud & Rose Notes", desc: "A timeless, artisanal fragrance designed for the modern luxury lover.", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_5", name: "Midnight Elixir", category: "Artisanal Fine Fragrances", mrp: 1899, price: 1299, notes: "Sandalwood & Jasmine", desc: "A deep, sensual evening fragrance.", img: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_6", name: "Citrus Grove", category: "Artisanal Fine Fragrances", mrp: 1299, price: 799, notes: "Bergamot & Neroli", desc: "Fresh, vibrant daytime scent.", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-
-            // Luxe Color & Makeup
-            { id: "prod_7", name: "Velvet Matte Lipstick", category: "Luxe Color & Makeup", mrp: 899, price: 699, notes: "Infused with Jojoba Oil", desc: "Rich pigment with botanical hydration.", img: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_8", name: "Botanical Lip Tint", category: "Luxe Color & Makeup", mrp: 599, price: 449, notes: "Beetroot & Shea Butter", desc: "Natural flush for lips and cheeks.", img: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_9", name: "Herbal Kajal", category: "Luxe Color & Makeup", mrp: 399, price: 299, notes: "Almond Oil & Camphor", desc: "Cooling, intensely black, smudge-proof.", img: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-
-            // Royal Hair Care Elixir
-            { id: "prod_10", name: "Royal Hair Masque", category: "Royal Hair Care Elixir", mrp: 799, price: 599, notes: "Bhringraj & Amla Extracts", desc: "Deep conditioning root therapy.", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_11", name: "Nourishing Hair Oil", category: "Royal Hair Care Elixir", mrp: 899, price: 699, notes: "Cold-pressed Coconut & Herbs", desc: "Stimulates growth and adds shine.", img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_12", name: "Gentle Cleanser", category: "Royal Hair Care Elixir", mrp: 699, price: 499, notes: "Shikakai & Reetha", desc: "Sulfate-free botanical shampoo.", img: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-
-            // Velvet Body & Bath Care
-            { id: "prod_13", name: "Shower Oil", category: "Velvet Body & Bath Care", mrp: 1099, price: 899, notes: "Almond & Vanilla", desc: "Transforms into a milky lather.", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_14", name: "Body Polish", category: "Velvet Body & Bath Care", mrp: 999, price: 799, notes: "Coffee & Brown Sugar", desc: "Exfoliates and deeply nourishes.", img: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_15", name: "Velvet Lotion", category: "Velvet Body & Bath Care", mrp: 899, price: 699, notes: "Shea Butter & Jasmine", desc: "24-hour hydration without greasiness.", img: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-
-            // Signature Gifting Vault
-            { id: "prod_16", name: "The Bridal Trousseau", category: "Signature Gifting Vault", mrp: 4999, price: 3999, notes: "Curated Skincare Set", desc: "The ultimate luxury botanical experience.", img: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_17", name: "Festive Glow Box", category: "Signature Gifting Vault", mrp: 2499, price: 1999, notes: "Ubtan, Serum & Toner", desc: "Perfect for the festive season.", img: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80", isComingSoon: true },
-            { id: "prod_18", name: "Fragrance Discovery Set", category: "Signature Gifting Vault", mrp: 1999, price: 1499, notes: "3 Mini Artisanal Perfumes", desc: "Explore our finest scents.", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80", isComingSoon: true }
+            { id: "prod_1", name: "SOMACA Oudh & Vanille", category: "Authentic Perfume Oils", mrp: 799, price: 499, notes: "Smoky Agarwood • Madagascar Vanilla • Warm Amber", desc: "Best For: Late Night & Royal Occasions.", img: "assets/images/oudh-vanille.jpg", isComingSoon: false },
+            { id: "prod_2", name: "SOMACA Royal White Musk", category: "Authentic Perfume Oils", mrp: 799, price: 499, notes: "Pure White Musk • Soft Rose Petals • Sandalwood", desc: "Best For: Signature Everyday Luxury.", img: "assets/images/white-musk.jpg", isComingSoon: false },
+            { id: "prod_3", name: "SOMACA Artisanal Amber & Rose", category: "Authentic Perfume Oils", mrp: 799, price: 499, notes: "Damask Rose • Golden Amber • Saffron Spice", desc: "Best For: Festive & Evening Wear.", img: "assets/images/amber-rose.jpg", isComingSoon: false },
+            { id: "prod_4", name: "SOMACA Royal Heritage Gift Box", category: "Signature Gifting", mrp: 2999, price: 1499, notes: "Matte-black sliding drawer box", desc: "Velvet insert and gold-embossed bottles.", img: "assets/images/gift-box.jpg", isComingSoon: false }
         ];
         localStorage.setItem('somaca_products', JSON.stringify(products));
     }
+}
+
+
+function renderSomacaPerfumes() {
+    const container = document.getElementById('somaca-perfumes-showcase');
+    if(!container) return;
+
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    let filtered = products.filter(p => p.category === 'Authentic Perfume Oils' || p.category === 'Signature Gifting');
+
+    let html = '';
+    filtered.forEach(p => {
+        let badgeHtml = '<div class="coming-soon-badge" style="background:var(--gold); color:#000;">Limited Edition: Batch #01 (Only 9 of 40 Bottles Left)</div>';
+
+        html += `
+            <div class="showcase-block reveal upgraded-product-card" style="padding: 20px 0; max-width: 320px;">
+                ${badgeHtml}
+                <div class="product-tag">${sanitize(p.category)}</div>
+                <img src="${sanitize(p.img)}" alt="${sanitize(p.name)}" class="showcase-img" style="margin-bottom: 0;">
+                <h2 class="showcase-title">${sanitize(p.name)}</h2>
+                <div class="product-notes">${sanitize(p.notes)}</div>
+                <p style="color: var(--text-muted); font-size: 11px; text-align: center; margin-bottom: 20px; max-width: 280px;">${sanitize(p.desc || '')}</p>
+                <div class="product-pricing">
+                    <span class="mrp-price">₹${p.mrp}</span>
+                    <span class="sell-price">₹${p.price}</span>
+                </div>
+                <div class="dual-buttons">
+                    <button class="btn-main glow-btn" style="width: 100%; padding: 12px; font-size: 11px;" onclick="buyNow('${p.id}')">Add to Cart</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
 }
 
 function openCollection(collectionName) {
@@ -368,6 +376,7 @@ function addManagerProduct() {
     renderManagerProducts();
     loadHeroVideo();
     renderCartDrawer();
+    renderSomacaPerfumes();
 }
 
 function deleteManagerProduct(id) {
@@ -378,6 +387,7 @@ function deleteManagerProduct(id) {
     renderManagerProducts();
     loadHeroVideo();
     renderCartDrawer();
+    renderSomacaPerfumes();
 }
 
 function renderManagerProducts() {
@@ -420,6 +430,7 @@ window.onload = () => {
     seedDefaultProducts();
     loadHeroVideo();
     renderCartDrawer();
+    renderSomacaPerfumes();
 
         checkAuth();
 };
@@ -1396,4 +1407,107 @@ function staffForgotPassword() {
 
 function staffForgotId() {
     showToast("Please contact the Founder (houseofsomaca@gmail.com) for ID/Email recovery.", "success");
+}
+
+
+// ================= INTERACTIVE UI LOGIC =================
+function nextQuizStep(choice) {
+    document.getElementById('quiz-step-1').style.display = 'none';
+    document.getElementById('quiz-step-2').style.display = 'block';
+}
+
+function showQuizResult(recommendation) {
+    document.getElementById('quiz-step-2').style.display = 'none';
+    document.getElementById('quiz-result').style.display = 'block';
+
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    let prod = products.find(p => p.name === recommendation);
+
+    let html = `<p style="margin-bottom: 15px;">${recommendation}</p>`;
+    if(prod) {
+        html += `<button class="hero-explore-btn" onclick="buyNow('${prod.id}')">Add to Cart - ₹${prod.price}</button>`;
+    }
+    document.getElementById('quiz-recommendation').innerHTML = html;
+}
+
+function resetQuiz() {
+    document.getElementById('quiz-result').style.display = 'none';
+    document.getElementById('quiz-step-1').style.display = 'block';
+}
+
+// Royal Trio Logic
+let trioSlots = [null, null, null];
+let activeTrioSlot = null;
+
+function openBundleSelector(slotNum) {
+    activeTrioSlot = slotNum;
+    document.getElementById('trio-selector').style.display = 'block';
+}
+
+function selectTrioItem(productName) {
+    trioSlots[activeTrioSlot - 1] = productName;
+    const slotEl = document.getElementById('slot-' + activeTrioSlot);
+
+    let products = JSON.parse(localStorage.getItem('somaca_products') || '[]');
+    let prod = products.find(p => p.name === productName);
+
+    if(prod) {
+        slotEl.style.backgroundImage = `url(${prod.img})`;
+        slotEl.innerText = '';
+        slotEl.title = prod.name;
+    }
+
+    document.getElementById('trio-selector').style.display = 'none';
+    checkTrioComplete();
+}
+
+function checkTrioComplete() {
+    if(trioSlots.every(slot => slot !== null)) {
+        const btn = document.getElementById('add-trio-btn');
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+}
+
+function addTrioToCart() {
+    // Add dummy bundle item to cart
+    let bundle = {
+        id: "trio_bundle_" + Date.now(),
+        name: "Royal Trio Custom Bundle",
+        category: "Bundles",
+        mrp: 1497,
+        price: 999,
+        notes: trioSlots.join(', '),
+        img: "assets/images/bundle.jpg",
+        qty: 1
+    };
+    shoppingCart.push(bundle);
+    saveCart();
+    showToast("Royal Trio added to cart!", "success");
+    toggleDrawer('cart-drawer');
+}
+
+// Custom Cursor
+document.addEventListener('mousemove', (e) => {
+    const cursor = document.getElementById('custom-cursor');
+    if(cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    }
+});
+
+// Ambient Audio
+let isAudioPlaying = false;
+function toggleAudio() {
+    const audio = document.getElementById('ambient-audio');
+    if(!audio) return;
+    if(isAudioPlaying) {
+        audio.pause();
+        isAudioPlaying = false;
+        document.getElementById('audio-toggle').innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+    } else {
+        audio.play().catch(e => console.log("Audio play blocked by browser"));
+        isAudioPlaying = true;
+        document.getElementById('audio-toggle').innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+    }
 }
